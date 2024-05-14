@@ -93,11 +93,11 @@
   </div>
 
   <div class="col-md-9 text__main__1">
-    <img src="@/assets/img/Stars.png" alt="Logo da imagem 1" class="img-fluid">
+    <img src="@/assets/img/Stars.png" alt="Logo da imagem 1" class="img-fluid h6__main__stars">
     <h6 class="h6__main__quarto__container">“Depois de começarmos a utilizar o E-Canhoto em nossa equipe de Fiscal e
       Contabilidade
       conseguimos reduzir as demandas de busca por notas pela metade!”</h6>
-    <p><span class="p__main__quarto__texto">Isabely Oliveira</span> | Chefe executiva da neXus</p>
+    <p class="p__main__text__quarto__container"><span class="p__main__quarto__texto">Isabely Oliveira</span> | Chefe executiva da neXus</p>
   </div>
 
 </div>

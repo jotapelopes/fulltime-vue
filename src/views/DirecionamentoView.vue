@@ -1,5 +1,7 @@
 <script setup>
-import Direcionamento from '@/components/Direcionamento.vue'
+import Direcionamento from '@/components/Direcionamento.vue';
+import '@/assets/style/direcionamento.css';
+
 </script>
 
 <template>
