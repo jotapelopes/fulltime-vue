@@ -26,7 +26,7 @@
 
             <div class="row cards-principal">
 
-                <div class="col-md-8 mt-5 bg-white usuarios-table table-responsive">
+                <div class="col-md-8 mt-5 bg-white dados-canhoto-table table-responsive">
 
                     <div class="text-table">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Últimos canhotos</h4>
@@ -127,6 +127,47 @@
 
                     </table>
 
+                </div>
+
+                <div class="col-md-3 ms-5 mt-5 bg-white dados-canhoto-container-2">
+                    <div class="row">
+
+                        <div class="busca-canhoto-container-2">
+                            <a class="btn btn-outline-danger busca-canhoto-container-2-text">Novo canhoto +</a>
+                            <div class="search-container">
+                                <input class="busca-canhoto-container-2-input" type="search" name="Buscar canhotos"
+                                    id="buscaCanhotoId" placeholder="Buscar canhotos">
+                                <i class='bx bx-search'></i>
+                            </div>
+
+                            <div class="busca-canhoto-container-2-cards">
+
+                                <div class="card card-styles busca-canhoto-container-2-card-div">
+                                    <div class="card-body d-flex align-items-start justify-content-between">
+                                        <div>
+                                            <h5 class="card-title mt-3">Canhotos do mês</h5>
+                                            <h1 class="card-text mt-3">132</h1>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28
+                                                </span>Hoje</h6>
+                                        </div>
+                                        <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2">
+                                    </div>
+                                </div>
+
+                                <div class="card card-styles busca-canhoto-container-2-card-div">
+                                    <div class="card-body d-flex align-items-start justify-content-between">
+                                        <div>
+                                            <h5 class="card-title mt-3">Total de canhotos</h5>
+                                            <h1 class="card-text mt-3">1.432.235</h1>
+                                            <h6 class="card-subtitle mb-2 text-body-secondary">Plano Gold</h6>
+                                        </div>
+                                        <img src="@/assets/img/icone-total-canhotos.png" class="mt-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
