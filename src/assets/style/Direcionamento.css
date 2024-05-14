@@ -1,9 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-.body {
-  height: 1024px;
-  width: 100%;
-  background-image: url('@/img/antes-footer.jpg');
+body {
+  background-image: url('../img/antes-footer.jpg');
   font-family: Montserrat, 'Roboto', sans-serif;
 }
 
@@ -23,7 +21,8 @@
   margin-right: 90px;
 }
 
-.btn__cliente__texto, .btn__cliente__texto a {
+.btn__cliente__texto,
+.btn__cliente__texto a {
   line-height: normal;
   color: var(--VermelhoFulltime-Forte, #7b1919);
 }
@@ -82,6 +81,7 @@ p {
   gap: 5%;
 }
 
+/* Media queries */
 @media screen and (max-width: 768px) {
   .containerLogin {
     width: 80%;
@@ -112,4 +112,5 @@ p {
   #btnLogin {
     width: 15rem;
   }
+
 }

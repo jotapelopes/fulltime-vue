@@ -1,7 +1,3 @@
-<style scoped>
-
-</style>
-
 <template>
   <div class="body">
     <div class="containerLogin mx-auto">
