@@ -1,8 +1,8 @@
 <script setup>
-import HomeSite from '../components/Home.vue';
+import Colaboradores from '@/components/Colaboradores.vue';
+import Sidebar from '@/components/Sidebar.vue';
 import '@/assets/style/home.css';
 import { onMounted } from 'vue';
-import Sidebar from '@/components/Sidebar.vue';
 
 onMounted(() => {
     const body = document.querySelector("body");
@@ -18,7 +18,7 @@ onMounted(() => {
 <template>
   <main>
     <Sidebar/>
-    <HomeSite
+    <Colaboradores
     />
   </main>
 </template>
