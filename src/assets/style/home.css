@@ -258,6 +258,82 @@ dt-paging:focus,
     box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08);
 }
 
+.dados-canhoto-table {
+    height: 100%;
+    border-radius: 8px;
+    background: var(--Neutral-White, #FFF);
+    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08);
+}
+
+.dados-canhoto-container-2 {
+    border-radius: 8px;
+    background: var(--Neutral-White, #FFF);
+    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08);
+    display: inline-flex;
+    padding: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+    flex-shrink: 0;
+}
+
+.busca-canhoto-container-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.busca-canhoto-container-2-text {
+    color: var(--VermelhoFulltime-Regular, #ED1C26);
+    font-family: Montserrat;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 5% !important;
+}
+
+.busca-canhoto-container-2-input {
+    display: flex;
+    width: 288px;
+    padding: 12px 10px;
+    align-items: flex-start;
+    border-radius: 6px;
+    border: 1px solid var(--Neutral-300, #DEE2E6);
+    background: var(--Neutral-White, #FFF);
+
+}
+
+.search-container {
+    position: relative;
+    margin-left: 5% !important;
+}
+
+.search-container i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    color: #777;
+
+}
+
+.busca-canhoto-container-2-cards {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+
+}
+
+.busca-canhoto-container-2-card-div {
+    border-radius: 8px !important;
+    background: var(--Neutral-White, #FFF) !important;
+    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08) !important;
+    margin-left: 5% !important;
+}
+
 .usuarios-table-title,
 .canhotos-table-title {
     color: var(--Neutral-900, #212529);
