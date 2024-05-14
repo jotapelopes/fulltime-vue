@@ -33,6 +33,11 @@ const router = createRouter({
       name: 'canhotos',
       component: () => import('../views/CanhotoView.vue')
     },
+    {
+      path: '/colaboradores',
+      name: 'colaboradores',
+      component: () => import('../views/ColaboradoresView.vue')
+    }
   ]
 })
 

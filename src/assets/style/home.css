@@ -282,6 +282,7 @@ dt-paging:focus,
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
+    margin-left: 10% !important;
 }
 
 .busca-canhoto-container-2-text {
@@ -292,6 +293,7 @@ dt-paging:focus,
     font-weight: 500;
     line-height: normal;
     margin-left: 5% !important;
+    width: 100% !important;
 }
 
 .busca-canhoto-container-2-input {

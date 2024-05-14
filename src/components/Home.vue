@@ -97,7 +97,7 @@
                                 <th>Nome</th>
                                 <th>Setor</th>
                                 <th>Permissões</th>
-                                <th></th>
+                                <th>Opções</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -133,7 +133,7 @@
                                     <img src="@/assets/img/giovana.png" alt="">
                                     Giovana Colombo
                                 </td>
-                                <td>Product Manager</td>
+                                <td>Product Owner</td>
                                 <td>Cadastro</td>
                                 <td><i class='bx bx-dots-vertical-rounded'></i></td>
                             </tr>

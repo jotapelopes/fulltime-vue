@@ -29,18 +29,11 @@
                 </li>
 
                 <li class="nav-link">
-                    <RouterLink to="/usuarios">
+                    <RouterLink to="/colaboradores">
                         <i class="bx bxs-user icon"></i>
-                        <span class="text nav-text">Usuários</span>
+                        <span class="text nav-text">Colaboradores</span>
                     </RouterLink>
                 </li>
-
-             <!--    <li class="nav-link">
-                    <a href="#">
-                        <i class="bx bxs-cog icon"></i>
-                        <span class="text nav-text">Configurações</span>
-                    </a>
-                </li> -->
             </div>
 
             <div class="bottom-content mb-5">
