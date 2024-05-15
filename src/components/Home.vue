@@ -91,7 +91,7 @@
                     </div>
 
 
-                    <table id="tableUsuarios" class="table table-responsive">
+                    <table id="tableUsuarios" class="table table-responsive table-striped">
                         <thead>
                             <tr>
                                 <th>Nome</th>

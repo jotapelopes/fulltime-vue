@@ -32,7 +32,7 @@
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Últimos canhotos</h4>
                     </div>
 
-                    <table id="tableUsuarios" class="table table-responsive">
+                    <table id="tableUsuarios" class="table table-responsive table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -130,6 +130,7 @@
                 </div>
 
                 <div class="col-md-3 ms-5 mt-5 bg-white dados-canhoto-container-2">
+                    <div class="row">
 
                         <div class="busca-canhoto-container-2">
                             <a class="btn btn-outline-danger busca-canhoto-container-2-text">Novo canhoto +</a>
@@ -166,6 +167,7 @@
                             </div>
 
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

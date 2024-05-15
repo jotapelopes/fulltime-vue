@@ -1,0 +1,12 @@
+@import './base.css';
+@import 'primeicons/primeicons.css';
+
+.p-stepper .p-stepper-header:has(~ .p-highlight) .p-stepper-separator{
+    background-color: #7b1919;
+}
+
+.p-stepper .p-stepper-header.p-highlight .p-stepper-number {
+    color:#fff;
+    background-color: #7b1919;
+
+}
