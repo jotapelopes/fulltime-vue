@@ -2,17 +2,7 @@
     <section class="home">
         <nav class="navbar principal-nav navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-end align-items-center">
-                <div class="me-3">
-                    <button class="btn btn-sm btn-default">
-                        <i class='bx bx-bell position-relative icon-notification'>
-                            <span
-                                class="position-absolute start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                                <span class="visually-hidden">2</span>
-                            </span>
-                        </i>
-                    </button>
-                </div>
-
+                
                 <div class="image-profile rounded-circle">
                     <img src="@/assets/img/profile.png" alt="Imagem de perfil">
                 </div>
@@ -29,7 +19,7 @@
                 <div class="col-md-8 mt-5 bg-white dados-canhoto-table table-responsive">
 
                     <div class="text-table">
-                        <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Últimos canhotos</h4>
+                        <h4 class="mt-4 ms-3 mb-3 canhotos-table-title">Últimos canhotos</h4>
                     </div>
 
                     <table id="tableUsuarios" class="table table-responsive table-striped">
@@ -130,10 +120,13 @@
                 </div>
 
                 <div class="col-md-3 ms-5 mt-5 bg-white dados-canhoto-container-2">
-                    <div class="row">
 
                         <div class="busca-canhoto-container-2">
-                            <a class="btn btn-outline-danger busca-canhoto-container-2-text">Novo canhoto +</a>
+
+                            <RouterLink to="/novo-canhoto" class="btn btn-outline-danger busca-canhoto-container-2-text">
+                            Novo Canhoto +
+                            </RouterLink>
+
                             <div class="search-container">
                                 <input class="busca-canhoto-container-2-input" type="search" name="Buscar canhotos"
                                     id="buscaCanhotoId" placeholder="Buscar canhotos">
@@ -168,7 +161,6 @@
 
                         </div>
                     </div>
-                </div>
             </div>
         </div>
 

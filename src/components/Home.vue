@@ -3,16 +3,7 @@
     <section class="home">
         <nav class="navbar principal-nav navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-end align-items-center">
-                <div class="me-3">
-                    <button class="btn btn-sm btn-default">
-                        <i class='bx bx-bell position-relative icon-notification'>
-                            <span
-                                class="position-absolute start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                                <span class="visually-hidden">2</span>
-                            </span>
-                        </i>
-                    </button>
-                </div>
+                
 
                 <div class="image-profile rounded-circle">
                     <img src="@/assets/img/profile.png" alt="Imagem de perfil">
@@ -46,17 +37,6 @@
                         <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2">
                     </div>
                 </div>
-
-                <!-- <div class="card card-styles">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <h5 class="card-title mt-3">Total de canhotos (não autenticados)</h5>
-                            <h1 class="card-text mt-3">1.432.235</h1>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Plano Gold</h6>
-                        </div>
-                        <img src="@/assets/img/icone-total-canhotos.png" alt="" class="mt-2">
-                    </div>
-                </div> -->
 
                 <div class="card card-styles">
                     <div class="card-body d-flex align-items-start justify-content-between">
@@ -161,14 +141,15 @@
 
                 </div>
 
-
                 <div class="col-md-6 ms-5 mt-4 bg-white usuarios-table">
 
                     <div class="text-table d-flex">
                         <h5 class="mt-4 ms-3 mb-3 canhotos-table-title mr-auto">Últimos canhotos</h5>
-                        <a class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+
+                        <RouterLink to="/novo-canhoto" class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
                             Novo Canhoto <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
-                        </a>
+                        </RouterLink>
+                       
                     </div>
 
                     <table id="tableCanhotos" class="table table-responsive">

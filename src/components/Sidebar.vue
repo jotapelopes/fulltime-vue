@@ -13,6 +13,13 @@
         <div class="menu-bar">
             <div class="menu">
 
+                <li class="nav-link active-canhoto">
+                    <RouterLink to="/novo-canhoto" class="active-canhoto">
+                        <i class='bx bx-plus-medical icon active-canhoto'></i>
+                        <span class="text nav-text active-canhoto">Novo Canhoto</span>
+                    </RouterLink>
+                </li>
+
                 <li class="nav-link">
                     <RouterLink to="/home">
                         <i class="bx bxs-home icon"></i>
@@ -38,7 +45,7 @@
 
             <div class="bottom-content mb-5">
                 <li class="active">
-                    <RouterLink to="/direcionamento" class="text nav-text text-white">
+                    <RouterLink to="/login" class="text nav-text text-white">
                         <i class="bx bx-log-out icon text-white"></i>
                         <span>Logout</span>
                     </RouterLink>
