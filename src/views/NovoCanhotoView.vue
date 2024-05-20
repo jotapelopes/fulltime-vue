@@ -1,5 +1,7 @@
 <script setup>
 import Sidebar from '@/components/Sidebar.vue';
+import NovoCanhoto from '@/components/NovoCanhoto.vue';
+
 import { onMounted } from 'vue';
 
 onMounted(() => {
@@ -16,5 +18,6 @@ onMounted(() => {
 <template>
   <main>
     <Sidebar/>
+    <NovoCanhoto/>
   </main>
 </template>
