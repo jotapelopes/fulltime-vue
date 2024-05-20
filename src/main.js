@@ -7,8 +7,8 @@ import 'primevue/resources/themes/aura-light-green/theme.css';
 import Stepper from 'primevue/stepper';
 import StepperPanel from 'primevue/stepperpanel';
 import PrimeVue from 'primevue/config';
-import 'primevue/resources/themes/aura-light-green/theme.css'
 import FileUpload from 'primevue/fileupload';
+
 
 const app = createApp(App);
 app.use(PrimeVue);

@@ -615,3 +615,305 @@ a.underline-hover:hover::before {
   color: var(--text-color) !important;
 
 }
+
+.planos {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 87px;
+  margin-bottom: 10% !important;
+  margin-top: 10% !important;
+}
+
+.text__planos {
+  text-align: center;
+  color: #ED1C26;
+  font-size: 28px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.card__planos {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 95px;
+  display: inline-flex;
+}
+
+.card__planos__container {
+  padding-top: 46px;
+  padding-bottom: 47px;
+  padding-left: 48px;
+  padding-right: 47px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: 1px #ADB5BD solid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.card__planos__container__2 {
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 45px;
+  display: inline-flex
+}
+
+.card__planos__container__3 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.card__planos__title {
+  text-align: center;
+  color: #7B1919;
+  font-size: 17px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.card__planos__container__interno {
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  display: inline-flex;
+}
+
+.card__planos__texto__1 {
+  text-align: center;
+  color: #7B1919;
+  font-size: 17px;
+  font-family: Montserrat;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.card__planos__texto__2__div {
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+  display: flex;
+
+}
+
+.card__planos__texto__2 {
+  width: 61px;
+  height: 44px;
+  text-align: center;
+  color: #7B1919;
+  font-size: 46px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.card__planos__texto__3__div {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  display: flex;
+}
+
+.card__planos__texto__3__span {
+  color: #220707;
+  font-size: 12px;
+  font-family: Montserrat;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.card__planos__texto__3__span__2 {
+  color: #220707;
+  font-size: 12px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.card__planos__texto__3__span__3 {
+  color: #220707;
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.card__planos__texto__3__span__4 {
+  color: #220707;
+  font-size: 14px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word
+}
+
+.card__planos__text__3__botao {
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 700;
+  line-height: 24px;
+  word-wrap: break-word;
+}
+
+.card__planos__container__secundario {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  display: flex;
+}
+
+.card__planos__container__terceiro {
+  width: 210px;
+  height: 0px;
+  border: 1px #ADB5BD solid;
+}
+
+.card__planos__container__quarto {
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.card__planos__container__quinto {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.card__planos__container__sexto {
+  width: 16px;
+  height: 16px;
+  left: 4px;
+  top: 4px;
+  position: absolute;
+  background: #7B1919;
+}
+
+.card__planos__container__sexto__text {
+  text-align: center;
+  color: black;
+  font-size: 16px;
+  font-family: Montserrat;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.card__planos__container__setimo {
+  width: 16px;
+  height: 20px;
+  left: 4px;
+  top: 2px;
+  position: absolute;
+  background: #7B1919;
+}
+
+.card__planos__container__antes__botao {
+  width: 20px;
+  height: 18px;
+  left: 2px;
+  top: 3px;
+  position: absolute;
+  background: #7B1919;
+}
+
+.card__planos__umedois {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background: #7B1919;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.card__planos__planos2__textocusto {
+  text-align: center;
+  color: white;
+  font-size: 17px;
+  font-family: Montserrat;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.card__texto__plano2__custo {
+  width: 305px;
+  padding: 10px;
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  background: #ED1C26;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  display: inline-flex;
+}
+
+.card__planos__text__3__plano2__antesbotao {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background: #ED1C26;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex
+}
+
+.card__planos2 {
+  width: 305px;
+  height: 500px;
+  position: relative;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.card__planos2__secundo {
+  padding-top: 46px;
+  padding-bottom: 47px;
+  padding-left: 48px;
+  padding-right: 47px;
+  left: 0px;
+  top: 40px;
+  position: absolute;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 1px #7B1919 solid;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+}
+
+.icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--progress, 10px);
+  color: #7B1919;
+  width: 24px;
+  height: 24px;
+}
+
+.text__planos__consultor {
+  color: #7B1919;
+}

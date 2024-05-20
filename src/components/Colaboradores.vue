@@ -2,16 +2,7 @@
     <section class="home">
         <nav class="navbar principal-nav navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-end align-items-center">
-                <div class="me-3">
-                    <button class="btn btn-sm btn-default">
-                        <i class='bx bx-bell position-relative icon-notification'>
-                            <span
-                                class="position-absolute start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                                <span class="visually-hidden">2</span>
-                            </span>
-                        </i>
-                    </button>
-                </div>
+                
 
                 <div class="image-profile rounded-circle">
                     <img src="@/assets/img/profile.png" alt="Imagem de perfil">

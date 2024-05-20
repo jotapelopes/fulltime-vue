@@ -9,19 +9,9 @@ const router = createRouter({
       component: () => import('../views/SiteView.vue')
     },
     {
-      path: '/loginempresa',
-      name: 'loginempresa',
-      component: () => import('../views/LoginEmpresaView.vue')
-    },
-    {
-      path: '/loginusuario',
-      name: 'loginusuario',
+      path: '/login',
+      name: 'login',
       component: () => import('../views/LoginUsuarioView.vue')
-    },
-    {
-      path: '/direcionamento',
-      name: 'direcionamento',
-      component: () => import('../views/DirecionamentoView.vue')
     },
     {
       path: '/home',
@@ -39,9 +29,19 @@ const router = createRouter({
       component: () => import('../views/ColaboradoresView.vue')
     },
     {
-      path: '/cadastroempresa',
-      name: 'cadastroempresa',
+      path: '/cadastro-empresa',
+      name: 'cadastro-empresa',
       component: () => import('../views/StepperView.vue')
+    },
+    {
+      path: '/novo-canhoto',
+      name: 'novo-canhoto',
+      component: () => import('../views/NovoCanhotoView.vue')
+    },
+    {
+      path: '/usuario',
+      name: 'usuario',
+      component: () => import('../views/UsuarioView.vue')
     }
   ]
 })

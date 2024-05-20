@@ -1,5 +1,5 @@
 <script setup>
-import LoginUsuario from '@/components/LoginUsuario.vue';
+import LoginUsuario from '@/components/Login.vue';
 import '@/assets/style/Direcionamento.css';
 
 </script>
