@@ -3,7 +3,7 @@
     <section class="home">
         <nav class="navbar principal-nav navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-end align-items-center">
-                
+
 
                 <div class="image-profile rounded-circle">
                     <img src="@/assets/img/profile.png" alt="Imagem de perfil">
@@ -11,65 +11,76 @@
             </div>
         </nav>
 
-        <div class="background-colors">
-            <h6 class="text p-5 ms-5">
+        <div class="container-fluid background-colors">
+            <h6 class="text p-5 text-visao-geral">
                 Visão geral da empresa
             </h6>
 
-            <div class="row cards-principal col-lg-12">
-                <div class="card">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <h5 class="card-title mt-3">Usuários</h5>
-                            <h1 class="card-text mt-3">18</h1>
+            <div class="row">
+
+                <div class="col-lg-3 cards-colunas">
+                    <div class="card me-3">
+                        <div class="card-body d-flex align-items-start justify-content-between">
+                            <div>
+                                <h5 class="card-title mt-3">Usuários</h5>
+                                <h1 class="card-text mt-3">18</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span>Hoje
+                                </h6>
+                            </div>
+                            <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2 img-fixed">
                         </div>
-                        <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2">
                     </div>
                 </div>
 
-                <div class="card card-styles">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <h5 class="card-title mt-3">Canhotos do mês</h5>
-                            <h1 class="card-text mt-3">132</h1>
-                            <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span>Hoje</h6>
+                <div class="col-lg-3 cards-colunas">
+                    <div class="card ">
+                        <div class="card-body d-flex align-items-start justify-content-between">
+                            <div>
+                                <h5 class="card-title mt-3">Canhotos do mês</h5>
+                                <h1 class="card-text mt-3">132</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span>Hoje</h6>
+                            </div>
+                            <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2 img-fixed">
                         </div>
-                        <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2">
                     </div>
                 </div>
 
-                <div class="card card-styles">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <h5 class="card-title mt-3">Total de canhotos</h5>
-                            <h1 class="card-text mt-3">1.432.235</h1>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Plano Gold</h6>
+                <div class="col-lg-3 cards-colunas">
+                    <div class="card">
+                        <div class="card-body d-flex align-items-start justify-content-between">
+                            <div>
+                                <h5 class="card-title mt-3">Total de canhotos</h5>
+                                <h1 class="card-text mt-3">1.432.235</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">128 </span>Hoje</h6>
+                            </div>
+                            <img src="@/assets/img/icone-total-canhotos.png" class="mt-2 img-fixed">
                         </div>
-                        <img src="@/assets/img/icone-total-canhotos.png" class="mt-2">
                     </div>
                 </div>
 
-                <div class="card card-styles">
-                    <div class="card-body d-flex align-items-start justify-content-between">
-                        <div>
-                            <h5 class="card-title mt-3">Plano Gold</h5>
-                            <h6 class="card-subtitle mb-2 text-body-secondary">Próxima fatura: 28 Abril 2024</h6>
+                <div class="col-lg-3 cards-colunas card-planos">
+                    <div class="card me-2">
+                        <div class="card-body d-flex align-items-start justify-content-between">
+                            <div>
+                                <h5 class="card-title mt-3">Plano Gold</h5>
+                                <h5 class="card-text mt-4 mb-4">Próx fatura: 28/06/2024</h5>
+                                <h6 class="card-subtitle mb-2 text-body-secondary">Ver fatura</h6>
+                            </div>
+                            <img src="@/assets/img/icone-plano-gold.png" class="mt-2 img-fixed">
                         </div>
-                        <img src="@/assets/img/icone-plano-gold.png" class="mt-2">
                     </div>
                 </div>
 
-            </div>
+                <div class="col-md-12 ms-3 mt-4 bg-white usuarios-table table-responsive">
 
-            <div class="row cards-principal">
-
-                <div class="col-md-5 mt-4 bg-white usuarios-table">
-
-
-                    <div class="text-table">
+                    <div class="text-table d-flex text-table-botoes">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Gestão de usuários</h4>
-                    </div>
 
+                        <RouterLink to="/novo-usuario" class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+                            Novo Usuário <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
+                        </RouterLink>
+
+                    </div>
 
                     <table id="tableUsuarios" class="table table-responsive table-striped">
                         <thead>
@@ -138,18 +149,17 @@
                         </tbody>
 
                     </table>
-
                 </div>
 
-                <div class="col-md-6 ms-5 mt-4 bg-white usuarios-table">
+                <div class="col-md-12 mt-4 ms-3 mb-3 bg-white usuarios-table table-responsive">
 
-                    <div class="text-table d-flex">
+                    <div class="text-table d-flex text-table-botoes">
                         <h5 class="mt-4 ms-3 mb-3 canhotos-table-title mr-auto">Últimos canhotos</h5>
 
                         <RouterLink to="/novo-canhoto" class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
                             Novo Canhoto <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
                         </RouterLink>
-                       
+
                     </div>
 
                     <table id="tableCanhotos" class="table table-responsive">
@@ -220,15 +230,18 @@
 
                     <div class="text-footer-div">
 
-                        <RouterLink to="/canhotos" class="btn btn-sm btn-outline-danger mt-2 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center">
-                            Ver todos os canhotos <i class='bx bx-right-arrow-alt arrow-footer-table d-flex justify-content-center align-items-center'></i>
+                        <RouterLink to="/canhotos"
+                            class="btn btn-sm btn-outline-danger mt-2 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center">
+                            Ver todos os canhotos <i
+                                class='bx bx-right-arrow-alt arrow-footer-table d-flex justify-content-center align-items-center'></i>
                         </RouterLink>
 
                     </div>
 
                 </div>
-
             </div>
+
+
         </div>
 
     </section>

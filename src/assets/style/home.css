@@ -198,7 +198,6 @@ body {
 }
 
 .card {
-    width: 18rem;
     box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08);
     border-radius: 8px;
     background: var(--Neutral-White, #FFF);
@@ -222,13 +221,15 @@ body {
 }
 
 .active {
-    color: var(--body-color) !important;
-    background: var(--text-color) !important;
+    color: #DEE2E6 !important;
+    background: #fc7171 !important;
+    border: 8px !important;
 }
 
 .active:hover {
-    background: var(--hover-color) !important;
-    color: var(--body-color) !important;
+    color: #DEE2E6 !important;
+    background: #fc7171 !important;
+    border: 8px !important;
 }
 
 table {
@@ -252,10 +253,11 @@ dt-paging:focus,
 }
 
 .usuarios-table {
-    height: 100%;
-    border-radius: 8px;
-    background: var(--Neutral-White, #FFF);
-    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08);
+    width: 97.5% !important;
+    height: 100% !important;
+    border-radius: 8px !important;
+    background: var(--Neutral-White, #FFF) !important;
+    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08) !important;
 }
 
 .dados-canhoto-table {
@@ -309,6 +311,10 @@ dt-paging:focus,
 
 }
 
+.busca-canhoto-container-2-input:active {
+    border: 1px solid var(--Neutral-300, #050505);
+}
+
 .search-container {
     position: relative;
     margin-left: 5% !important;
@@ -338,8 +344,15 @@ dt-paging:focus,
     margin-left: 5% !important;
 }
 
+.usuarios-table-title {
+    height: 50px !important;
+    display: flex !important;
+    text-align: center !important;
+    align-items: center !important;
+}
+
 .usuarios-table-title,
-.canhotos-table-title {
+.canhotos-table-title { 
     color: var(--Neutral-900, #212529);
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
@@ -382,73 +395,222 @@ dt-paging:focus,
 }
 
 .novo-canhoto {
-    margin-left: 54% !important;
+    margin-left: 80% !important;
+    width: 100px !important;
 }
 
 .active-canhoto {
     color: #FFF !important;
-    background-color: #7B1919 !important;
+    background-color: #ed5050 !important;
 }
 
 .active-canhoto:hover {
     color: #FFF !important;
-    background-color: #7B1919 !important;
+    background-color: #ed5050 !important;
 }
 
-@media only screen and (max-width: 992px) {
-    .cards-principal {
-        margin-left: 0;
-    }
-
-    .card-styles {
-        margin-left: 0 !important;
-    }
+.img-fixed {
+    width: 30px;
+    height: auto;
+    object-fit: contain;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+
+    .sidebar {
+        min-width: 90px !important;
+    }
+
+    .sidebar .text {
+        display: none !important;
+    }
+
+    .sidebar .image-text img {
+        width: 60px !important;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px !important;
+    }
+
+    .home {
+        min-width: 100% !important;
+        margin-left: -160px !important;
+    }
+
     .card {
-        width: calc(50% - 20px);
+        min-width: 240px !important;
     }
 
-    .card-styles {
-        margin-left: 0;
+    .cards-colunas {
+        flex: 0 0 auto;
+        display: flex !important;
     }
+
+    .usuarios-table {
+        min-width: 890px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -120px !important;
+        width: 400px !important;
+    }
+
+    .image-profile {
+        margin-right: 100px !important;
+    }
+
+    .bottom-content {
+        margin-bottom: 60rem !important;
+    }
+
+    .background-colors {
+        width: 1024px !important;
+        height: 1366px !important;
+    }
+
 }
+
 
 @media only screen and (max-width: 576px) {
     .card {
         width: 100%;
     }
+}
 
-    .card-styles {
-        margin-left: 0;
+/* MEDIA QUERY IPHONE SE */
+@media only screen and (min-width: 375px) and (max-width: 667px) {
+
+    .sidebar {
+        width: 90px !important;
+    }
+
+    .sidebar .text {
+        display: none !important;
+    }
+
+    .sidebar .image-text img {
+        width: 60px !important;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px !important;
+    }
+
+    .home {
+        width: 100% !important;
+        margin-left: -160px !important;
+    }
+
+    .card {
+        width: 260px !important;
+        margin-left: 5px !important;
+        margin-top: 10px !important;
+    }
+
+    .usuarios-table {
+        width: 190px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -300px !important;
+        width: 10px !important;
+    }
+
+    .image-profile {
+        margin-right: 170px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
     }
 }
 
-/* Media queries para tornar o sidebar responsivo */
+/* MEDIA QUERY IPAD MINI */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .sidebar {
+        width: 90px !important;
+    }
+
+    .sidebar .text {
+        display: none !important;
+    }
+
+    .sidebar .image-text img {
+        width: 60px !important;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px !important;
+    }
+
+    .home {
+        width: 100% !important;
+        margin-left: -160px !important;
+    }
+
+    .card {
+        width: 860px !important;
+        margin-left: 5px !important;
+        margin-top: 10px !important;
+    }
+
+    .usuarios-table {
+        width: 190px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -300px !important;
+        width: 10px !important;
+    }
+
+    .image-profile {
+        margin-right: 170px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
+    }
+}
+
+/* IPHONES MAIORES */
 @media only screen and (max-width: 768px) {
+
     .sidebar {
-        width: 200px;
-    }
-
-    .card-styles {
-        margin-left: 0;
-    }
-}
-
-@media only screen and (max-width: 576px) {
-    .sidebar {
-        width: 150px;
-    }
-
-    .card-styles {
-        margin-left: 0;
-    }
-}
-
-@media only screen and (max-width: 480px) {
-    .sidebar {
-        width: 120px;
+        width: 90px;
     }
 
     .sidebar .text {
@@ -463,7 +625,228 @@ dt-paging:focus,
         min-width: 60px;
     }
 
-    .card-styles {
-        margin-left: 0;
+    .home {
+        width: 100%;
+        margin-left: -160px !important;
     }
+
+    .card {
+        width: 570px !important;
+    }
+
+    .usuarios-table {
+        width: 565px !important;
+    }
+
+    .canhotos-table-title {
+        display: none;
+    }
+
+    .text-table-botoes {
+        display: none;
+    }
+
+    .novo-canhoto {
+        margin-left: -180px !important;
+        width: 400px;
+    }
+
+    .image-profile {
+        margin-right: 170px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
+    }
+
+}
+
+/* MEDIA QUERY GALAXY S8+ */
+@media only screen and (min-width: 360px) and (max-width: 740px) {
+    .sidebar {
+        width: 90px !important;
+    }
+
+    .sidebar .text {
+        display: none !important;
+    }
+
+    .sidebar .image-text img {
+        width: 60px !important;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px !important;
+    }
+
+    .home {
+        width: 100% !important;
+        margin-left: -160px !important;
+    }
+
+    .card {
+        width: 240px !important;
+        margin-left: 5px !important;
+        margin-top: 10px !important;
+    }
+
+    .usuarios-table {
+        max-width: 245px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -300px !important;
+        width: 10px !important;
+    }
+
+    .image-profile {
+        margin-right: 170px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
+    }
+
+    .text-visao-geral {
+        font-size: 30px !important;
+        margin-left: -30px !important;
+    }
+}
+
+/* MEDIA QUERY GALAXY S20 ULTRA */
+@media only screen and (min-width: 412px) and (max-width: 915px) {
+
+    .sidebar {
+        width: 90px !important;
+    }
+
+    .sidebar .text {
+        display: none !important;
+    }
+
+    .sidebar .image-text img {
+        width: 60px !important;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px !important;
+    }
+
+    .home {
+        width: 100% !important;
+        margin-left: -160px !important;
+    }
+
+    .card {
+        width: 280px !important;
+        margin-left: 5px !important;
+        margin-top: 10px !important;
+    }
+
+    .usuarios-table {
+        max-width: 287px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -300px !important;
+        width: 10px !important;
+    }
+
+    .image-profile {
+        margin-right: 170px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
+    }
+
+    .text-visao-geral {
+        font-size: 30px !important;
+        margin-left: -30px !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .sidebar {
+        width: 90px;
+    }
+
+    .sidebar .text {
+        display: none;
+    }
+
+    .sidebar .image-text img {
+        width: 60px;
+    }
+
+    .sidebar li .icon {
+        min-width: 60px;
+    }
+
+    .home {
+        width: 100%;
+        margin-left: -160px !important;
+    }
+
+    .card {
+        width: 270px;
+    }
+
+    .usuarios-table {
+        width: 270px !important;
+    }
+
+    .canhotos-table-title {
+        display: none;
+    }
+
+    .text-table-botoes {
+        display: none;
+    }
+
+    .novo-canhoto {
+        margin-left: -120px;
+        width: 400px;
+    }
+
+    .image-profile {
+        margin-right: 100px;
+    }
+
+    .bottom-content {
+        margin-bottom: 45rem !important;
+    }
+
+    .toggle {
+        display: none !important;
+    }
+
 }

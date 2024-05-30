@@ -2,7 +2,10 @@
 import Canhoto from '../components/Canhotos.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import '@/assets/style/home.css';
-import { onMounted } from 'vue';
+import axios from 'axios';
+import {onMounted, reactive, ref} from "vue";
+
+let personagens = reactive(ref())
 
 onMounted(() => {
     const body = document.querySelector("body");
@@ -12,6 +15,18 @@ onMounted(() => {
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
+
+    axios.get('http://localhost:5104/api/Status')  // Note the changed URL
+    .then(response => {
+      personagens.value = response.data;
+
+    })
+    .catch(error => {
+      console.error('Erro ao localizar dados do canhoto', error);
+    });
+
+  console.log(personagens);
+
 });
 </script>
 
