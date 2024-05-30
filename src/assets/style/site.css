@@ -768,6 +768,11 @@ a.underline-hover:hover::before {
   word-wrap: break-word;
 }
 
+.card__planos__text__3__plano2__antesbotao:hover,
+.card__planos__umedois:hover {
+  background-color: #f35961;
+}
+
 .card__planos__container__secundario {
   flex-direction: column;
   justify-content: center;
@@ -832,6 +837,7 @@ a.underline-hover:hover::before {
 }
 
 .card__planos__umedois {
+  margin-top: 5px;
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 6px;
@@ -868,6 +874,7 @@ a.underline-hover:hover::before {
 }
 
 .card__planos__text__3__plano2__antesbotao {
+  margin-top: 5px;
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 6px;

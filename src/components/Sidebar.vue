@@ -20,14 +20,14 @@
                     </RouterLink>
                 </li>
 
-                <li class="nav-link">
+                <li :class="{'nav-link': true, active: isActive('/home')}">
                     <RouterLink to="/home">
                         <i class="bx bxs-home icon"></i>
                         <span class="text nav-text">Dashboard</span>
                     </RouterLink>
                 </li>
 
-                <li class="nav-link">
+                <li :class="{'nav-link': true, active: isActive('/canhotos')}">
 
                     <RouterLink to="/canhotos">
                         <i class="bx bxs-spreadsheet icon"></i>
@@ -35,7 +35,7 @@
                     </RouterLink>
                 </li>
 
-                <li class="nav-link">
+                <li :class="{'nav-link': true, active: isActive('/colaboradores')}">
                     <RouterLink to="/colaboradores">
                         <i class="bx bxs-user icon"></i>
                         <span class="text nav-text">Colaboradores</span>
@@ -44,10 +44,11 @@
             </div>
 
             <div class="bottom-content mb-5">
-                <li class="active">
-                    <RouterLink to="/login" class="text nav-text text-white">
-                        <i class="bx bx-log-out icon text-white"></i>
-                        <span>Logout</span>
+
+                <li class="nav-link">
+                    <RouterLink to="/login">
+                        <i class="bx bx-log-out icon"></i>
+                        <span class="text nav-text">Logout</span>
                     </RouterLink>
                 </li>
             </div>
@@ -55,5 +56,18 @@
     </nav>
 </template>
 
-<script setup>
+
+<script>
+export default {
+  computed: {
+    currentRoute() {
+      return this.$route.path;
+    }
+  },
+  methods: {
+    isActive(route) {
+      return this.$route.path === route;
+    }
+  }
+}
 </script>

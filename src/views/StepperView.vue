@@ -1,12 +1,6 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import Stepper from '@/components/Stepper.vue';
 import '@/assets/style/stepper.css';
-import Swal from 'sweetalert2';
-import axios from 'axios';
-
-// Obtenha o roteador
-const router = useRouter();
 
 function handleFormCompleted(formData) {
 
@@ -43,4 +37,5 @@ function handleFormCompleted(formData) {
   </main>
 </template>
 
+<script></script>
 <style></style>
