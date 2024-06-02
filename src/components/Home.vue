@@ -24,7 +24,7 @@
                             <div>
                                 <h5 class="card-title mt-3">Usuários</h5>
                                 <h1 class="card-text mt-3">18</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span>Hoje
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span> Hoje
                                 </h6>
                             </div>
                             <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2 img-fixed">
@@ -37,8 +37,8 @@
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
                                 <h5 class="card-title mt-3">Canhotos do mês</h5>
-                                <h1 class="card-text mt-3">132</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span>Hoje</h6>
+                                <h1 class="card-text mt-3"> {{ totalCanhotosDoMes }}</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalCanhotosHoje }}</span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2 img-fixed">
                         </div>
@@ -50,8 +50,8 @@
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
                                 <h5 class="card-title mt-3">Total de canhotos</h5>
-                                <h1 class="card-text mt-3">1.432.235</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">128 </span>Hoje</h6>
+                                <h1 class="card-text mt-3"> {{ totalCanhotos }}</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalCanhotosHoje }} </span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-total-canhotos.png" class="mt-2 img-fixed">
                         </div>
@@ -76,7 +76,7 @@
                     <div class="text-table d-flex text-table-botoes">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Gestão de usuários</h4>
 
-                        <RouterLink to="/novo-usuario" class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+                        <RouterLink to="/novo-usuario" class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
                             Novo Usuário <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
                         </RouterLink>
 
@@ -155,78 +155,35 @@
 
                     <div class="text-table d-flex text-table-botoes">
                         <h5 class="mt-4 ms-3 mb-3 canhotos-table-title mr-auto">Últimos canhotos</h5>
-
-                        <RouterLink to="/novo-canhoto" class="btn btn-sm btn-outline-danger mt-3 ms-3 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
-                            Novo Canhoto <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
-                        </RouterLink>
-
                     </div>
 
-                    <table id="tableCanhotos" class="table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Data de Upload</th>
-                                <th>Valor do Recibo</th>
-                                <th>Gerador</th>
-                                <th>Autenticado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>0005</td>
-                                <td>01/01/2024</td>
-                                <td>R$524,30</td>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>OK</td>
-                            </tr>
-                            <tr>
-                                <td>0005</td>
-                                <td>01/01/2024</td>
-                                <td>R$524,30</td>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>OK</td>
-                            </tr>
-                            <tr>
-                                <td>0005</td>
-                                <td>01/01/2024</td>
-                                <td>R$524,30</td>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>OK</td>
-                            </tr>
-                            <tr>
-                                <td>0005</td>
-                                <td>01/01/2024</td>
-                                <td>R$524,30</td>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>OK</td>
-                            </tr>
-                            <tr>
-                                <td>0005</td>
-                                <td>01/01/2024</td>
-                                <td>R$524,30</td>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>OK</td>
-                            </tr>
-
-                        </tbody>
-
-                    </table>
+                    <DataTable :value="canhotos" paginator :rows="7" :sortOrder="1">
+                        <Column field="id" header="ID" filterField="id"></Column>
+                        <Column field="valorCanhoto" header="Valor do Recibo">
+                            <template #body="slotProps">
+                                {{ this.formataValor(slotProps.data.valorCanhoto) }}
+                            </template>
+                        </Column>
+                        <Column field="colaboradorId" header="Gerador">
+                            <template #body="slotProps">
+                                {{ this.buscaColaborador(slotProps.data.colaboradorId) }}
+                            </template>
+                        </Column>
+                        <Column field="dataInclusao" header="Data de Inclusão">
+                            <template #body="slotProps">
+                                {{ this.formataData(slotProps.data.dataInclusao) }}
+                            </template>
+                        </Column>
+                        <Column field="autenticado" header="Autenticado">
+                            <template #body="slotProps">
+                                <Badge 
+                                class="justify-content-center text-center" 
+                                :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
+                                :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'"
+                                ></Badge>
+                            </template>
+                        </Column>
+                    </DataTable>
 
                     <div class="text-footer-div">
 
@@ -247,3 +204,77 @@
     </section>
 
 </template>
+
+<script>
+
+import PostCanhotoDataService from '@/services/PostCanhotoDataService';
+import PostUsuarioDataService from '@/services/PostUsuarioDataService';
+import { getCanhotosHoje, getQuantidadeCanhotosDoMes, formatarData, formatarValorBrasil } from '@/services/utils';
+import { Text } from 'vue';
+
+export default {
+
+    name: "home",
+    data() {
+        return {
+            canhotos: [],
+            totalCanhotos: 0,
+            totalCanhotosDoMes: 0,
+            totalCanhotosHoje: 0,
+            dataFormatada: "",
+            nomeColaborador: "",
+        }
+    },
+    methods: {
+        getTodosCanhotosHoje(canhotos) {
+
+            if (canhotos) {
+                const getTotalDeCanhotosHoje = getCanhotosHoje(canhotos);
+                this.totalCanhotosHoje = getTotalDeCanhotosHoje;
+            }
+
+        },
+        getAllCanhotos() {
+            
+            PostCanhotoDataService.getAll().then(response => {
+
+                this.canhotos = response.data;
+                this.totalCanhotos = this.canhotos.length;
+                this.getQuantidadeCanhotosDoMesAtual(this.canhotos);
+                this.getTodosCanhotosHoje(this.canhotos);
+
+            });
+
+        },
+        getQuantidadeCanhotosDoMesAtual(canhotos) {
+
+            if (canhotos) {
+                const getQuantidaddeCanhotosDoMesAtual = getQuantidadeCanhotosDoMes(canhotos);
+                this.totalCanhotosDoMes = getQuantidaddeCanhotosDoMesAtual;
+            }
+
+        },
+        formataData(data) {
+            return formatarData(data);
+        },
+        formataValor(valor) {
+            return formatarValorBrasil(valor);
+        },
+        buscaColaborador(id) {
+            PostUsuarioDataService.getUsuarioId(id).then(response => {
+                this.nomeColaborador =  response.data;
+            });
+
+            return this.nomeColaborador;
+        }
+        
+
+    },
+    mounted() {
+        this.getAllCanhotos(),
+        this.getQuantidadeCanhotosDoMesAtual(),
+        this.getTodosCanhotosHoje()
+    }
+}
+
+</script>

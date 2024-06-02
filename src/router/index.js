@@ -4,7 +4,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/site',
+      path: '/',
       name: 'site',
       component: () => import('../views/SiteView.vue')
     },
@@ -32,11 +32,6 @@ const router = createRouter({
       path: '/cadastro-empresa',
       name: 'cadastro-empresa',
       component: () => import('../views/StepperView.vue')
-    },
-    {
-      path: '/novo-canhoto',
-      name: 'novo-canhoto',
-      component: () => import('../views/NovoCanhotoView.vue')
     },
     {
       path: '/usuario',
