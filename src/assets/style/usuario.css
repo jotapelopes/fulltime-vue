@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+body {
+    background-color: #CACACA;
+}
+
+.card {
+    width: 80rem;
+    box-shadow: 0px 2px 4px 0px rgba(13, 23, 33, 0.08), 0px 1px 2px 0px rgba(21, 30, 40, 0.08) !important;
+}
+
 .form-label {
     color: #232323 !important;
-    font-family: Montserrat !important;
+    font-family: 'Montserrat' !important;
     font-size: 16px !important;
     font-style: normal !important;
     font-weight: 400 !important;
@@ -19,18 +28,36 @@
 }
 
 .form-control:focus {
-    border-color: #cccccc;
+    border-color: #00ff15 !important;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-.botao-cadastrar {
-    width: 190px;
-    height: 50px;
+.botao-voltar {
+    width: 160px;
+    height: 45px;
     flex-shrink: 0;
-    border-radius: 15px;
+    border-radius: 10px;
     background: var(--VermelhoFulltime-Regular, #ED1C26);
+    border: 1px transparent solid;
+    display: flex !important;
+    justify-content: center !important;
+    font-size: 20px;
+    margin-right: 10px !important;
+}
+
+.botao-voltar:hover {
+    background: #FF9B9B;
+    border: 1px transparent solid;
+}
+
+.botao-cadastrar {
+    width: 160px;
+    height: 45px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--VermelhoFulltime-Regular, #2dad1f);
     border: 1px transparent solid;
     display: flex !important;
     justify-content: center !important;
@@ -38,11 +65,12 @@
 }
 
 .botao-cadastrar:hover {
-    background: #FF9B9B;
+    background: var(--VermelhoFulltime-Regular, #a3e59b);
     border: 1px transparent solid;
 }
 
 .text-cadastro {
+    
     color: #ED1C26;
 }
 

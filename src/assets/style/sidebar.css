@@ -141,3 +141,9 @@
     color: var(--primary-color-light) !important;
     background-color: var(--hover-color) !important;
 }
+
+.active {
+    color: #DEE2E6 !important;
+    background: #fc7171 !important;
+    border: 8px !important;
+}
