@@ -14,10 +14,8 @@
             <div class="menu">
 
                 <li class="nav-link active-canhoto">
-                    <RouterLink to="/novo-canhoto" class="active-canhoto">
-                        <i class='bx bx-plus-medical icon active-canhoto'></i>
-                        <span class="text nav-text active-canhoto">Novo Canhoto</span>
-                    </RouterLink>
+                    <i class='bx bx-plus-medical icon active-canhoto'></i>
+                    <span @click="$emit('newCanhoto')" class="text nav-text active-canhoto"><span class="text nav-text active-canhoto">Novo Canhoto</span></span>
                 </li>
 
                 <li :class="{'nav-link': true, active: isActive('/home')}">

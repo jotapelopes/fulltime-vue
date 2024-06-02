@@ -2,7 +2,7 @@
     <section class="home">
         <nav class="navbar principal-nav navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid d-flex justify-content-end align-items-center">
-                
+
 
                 <div class="image-profile rounded-circle">
                     <img src="@/assets/img/profile.png" alt="Imagem de perfil">
@@ -23,81 +23,69 @@
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Colaboradores cadastrados</h4>
                     </div>
 
-                    <table id="tableColaboradores" class="table">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th class="text-center">Setor</th>
-                                <th class="text-center">Permissões</th>
-                                <th class="text-center">Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td class="text-center">UX/UI Design</td>
-                                <td class="text-center">Total</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/daniel.png" alt="">
-                                    Daniel Oliveira
-                                </td>
-                                <td class="text-center">Back-end</td>
-                                <td class="text-center">Total</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/eduardo.png" alt="">
-                                    Eduardo Evaristo
-                                </td>
-                                <td class="text-center">Back-end</td>
-                                <td class="text-center">Edição</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/giovana.png" alt="">
-                                    Giovana Colombo
-                                </td>
-                                <td class="text-center">Product Owner</td>
-                                <td class="text-center">Cadastro</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Jenifer Gonçalves
-                                </td>
-                                <td class="text-center">Front-end</td>
-                                <td class="text-center">Cadastro</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    João Pedro Lopes
-                                </td>
-                                <td class="text-center">Front-end</td>
-                                <td class="text-center">Cadastro</td>
-                                <td class="text-center"><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                        </tbody>
 
-                    </table>
+                    <DataTable :value="colaboradores" paginator :rows="5">
+                        <Column field="id" header="ID"></Column>
+                        <Column field="nome" header="Nome"></Column>
+                        <Column field="email" header="Email"></Column>
+                        <Column field="dataNascimento" header="Data de Nascimento"></Column>
+                        <Column field="usuarioAdmin" header="É admin">
+
+                            <template #body="slotProps">
+                                <Badge 
+                                class="d-flex justify-content-center" 
+                                :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
+                                :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"
+                                ></Badge>
+                            </template>
+                            
+                        </Column>
+                        <Column field="dataInclusao" header="Data de inclusão">
+                            <template #body="slotProps">
+                                {{ this.formataData(slotProps.data.dataInclusao) }}
+                            </template>
+                        </Column>
+                        <Column header="Opções">
+                            <template #body="slotProps">
+                                <i class='bx bxs-edit' @click="editCanhoto(slotProps.data.id)"></i>
+                            </template>
+                        </Column>
+                    </DataTable>
 
                 </div>
-                
+
             </div>
         </div>
 
     </section>
 </template>
 
-<script setup>
+<script>
+
+import PostUsuarioDataService from '@/services/PostUsuarioDataService';
+import { formatarData } from '@/services/utils';
+
+
+export default {
+    name: "colaboradores",
+    data() {
+        return {
+            colaboradores: []
+        }
+    },
+    methods: {
+        getAllColaboradores() {
+            PostUsuarioDataService.getAll().then(response => {
+                this.colaboradores = response.data;
+            });
+
+        },
+        formataData(data) {
+            return formatarData(data);
+        }
+    },
+    mounted() {
+        this.getAllColaboradores();
+    }
+}
 </script>

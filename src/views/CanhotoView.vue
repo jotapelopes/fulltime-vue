@@ -5,6 +5,8 @@ import '@/assets/style/home.css';
 import '@/assets/style/canhoto.css';
 import {onMounted, reactive, ref} from "vue";
 
+const canhotoRef = ref(null);
+
 onMounted(() => {
     const body = document.querySelector("body");
     const sidebar = body.querySelector(".sidebar");
@@ -13,15 +15,19 @@ onMounted(() => {
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
-
-
 });
+
+function handleNewCanhoto() {
+    if (canhotoRef.value) {
+      canhotoRef.value.newCanhoto();
+    }
+}
+
 </script>
 
 <template>
   <main>
-    <Sidebar/>
-    <Canhoto
-    />
+    <Sidebar @newCanhoto="handleNewCanhoto" />
+    <Canhoto ref="canhotoRef" />
   </main>
 </template>
