@@ -330,11 +330,13 @@ dt-paging:focus,
 }
 
 .active-canhoto {
+    cursor: pointer;
     color: #FFF !important;
     background-color: #ed5050 !important;
 }
 
 .active-canhoto:hover {
+    cursor: pointer;
     color: #FFF !important;
     background-color: #ed5050 !important;
 }
@@ -343,6 +345,14 @@ dt-paging:focus,
     width: 30px;
     height: auto;
     object-fit: contain;
+}
+
+.bxs-edit,
+.bxs-file-export {
+    cursor: pointer;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1366px) {

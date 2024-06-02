@@ -38,7 +38,8 @@
                             <div>
                                 <h5 class="card-title mt-3">Canhotos do mês</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotosDoMes }}</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalCanhotosHoje }}</span> Hoje</h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
+                                        totalCanhotosHoje }}</span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2 img-fixed">
                         </div>
@@ -51,7 +52,8 @@
                             <div>
                                 <h5 class="card-title mt-3">Total de canhotos</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotos }}</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalCanhotosHoje }} </span> Hoje</h6>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
+                                        totalCanhotosHoje }} </span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-total-canhotos.png" class="mt-2 img-fixed">
                         </div>
@@ -76,79 +78,41 @@
                     <div class="text-table d-flex text-table-botoes">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Gestão de usuários</h4>
 
-                        <RouterLink to="/novo-usuario" class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
-                            Novo Usuário <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
+                        <RouterLink to="/novo-usuario"
+                            class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+                            Novo Usuário <i
+                                class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
                         </RouterLink>
 
                     </div>
 
-                    <table id="tableUsuarios" class="table table-responsive table-striped">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Setor</th>
-                                <th>Permissões</th>
-                                <th>Opções</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Amanda Vieira
-                                </td>
-                                <td>UX/UI Design</td>
-                                <td>Total</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/daniel.png" alt="">
-                                    Daniel Oliveira
-                                </td>
-                                <td>Back-end</td>
-                                <td>Total</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/eduardo.png" alt="">
-                                    Eduardo Evaristo
-                                </td>
-                                <td>Back-end</td>
-                                <td>Edição</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/giovana.png" alt="">
-                                    Giovana Colombo
-                                </td>
-                                <td>Product Owner</td>
-                                <td>Cadastro</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    Jenifer Gonçalves
-                                </td>
-                                <td>Front-end</td>
-                                <td>Cadastro</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="@/assets/img/amanda.png" alt="">
-                                    João Pedro Lopes
-                                </td>
-                                <td>Front-end</td>
-                                <td>Cadastro</td>
-                                <td><i class='bx bx-dots-vertical-rounded'></i></td>
-                            </tr>
-                        </tbody>
+                    <DataTable :value="colaboradores" paginator :rows="7">
+                        <Column field="id" header="ID"></Column>
+                        <Column field="nome" header="Nome"></Column>
+                        <Column field="email" header="Email"></Column>
+                        <Column field="dataNascimento" header="Data de Nascimento"></Column>
+                        <Column field="usuarioAdmin" header="É admin">
 
-                    </table>
+                            <template #body="slotProps">
+                                <Badge 
+                                class="d-flex justify-content-center" 
+                                :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
+                                :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"
+                                ></Badge>
+                            </template>
+                            
+                        </Column>
+                        <Column field="dataInclusao" header="Data de inclusão">
+                            <template #body="slotProps">
+                                {{ this.formataData(slotProps.data.dataInclusao) }}
+                            </template>
+                        </Column>
+                        <Column header="Opções">
+                            <template #body="slotProps">
+                                <i class='bx bxs-edit' @click="editCanhoto(slotProps.data.id)"></i>
+                            </template>
+                        </Column>
+                    </DataTable>
                 </div>
 
                 <div class="col-md-12 mt-4 ms-3 mb-3 bg-white usuarios-table table-responsive">
@@ -176,11 +140,10 @@
                         </Column>
                         <Column field="autenticado" header="Autenticado">
                             <template #body="slotProps">
-                                <Badge 
-                                class="justify-content-center text-center" 
-                                :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
-                                :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'"
-                                ></Badge>
+                                <Badge class="justify-content-center text-center"
+                                    :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
+                                    :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'">
+                                </Badge>
                             </template>
                         </Column>
                     </DataTable>
@@ -196,6 +159,41 @@
                     </div>
 
                 </div>
+
+                <Dialog v-model:visible="visible" modal header="Novo Canhoto" :style="{ width: '55rem', height: '30rem' }">
+                    <div class="flex align-items-center gap-4 mb-3">
+                        <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
+                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
+                    </div>  
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="valor" class="mb-2">Valor do canhoto</label><br>
+                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2" v-model="post.valor" />
+                        </div>
+
+                        <div class="col-md-3 mb-3" v-if="!isEditMode">
+                            <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
+                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador" />
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label for="status" class="font-semibold mb-2">Status</label><br>
+                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name" placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
+                        </div>
+                    </div>
+
+                    <div class="flex align-items-center gap-3 mb-5" v-show="showUpload">
+                        <label for="image" class="font-semibold mb-2">Selecione a imagem do canhoto</label><br>
+                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @select="onSelect" class="w-15" chooseLabel="Upload" />
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <Button type="button" severity="secondary" @click="visible = false" class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()" class="btn btn-success">{{ isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
+                    </div>
+                </Dialog>
+
             </div>
 
 
@@ -209,6 +207,9 @@
 
 import PostCanhotoDataService from '@/services/PostCanhotoDataService';
 import PostUsuarioDataService from '@/services/PostUsuarioDataService';
+import PostStatusDataService from '@/services/PostStatusDataService';
+import PostEmpresaDataService from '../services/PostEmpresaDataService';
+import Swal from 'sweetalert2';
 import { getCanhotosHoje, getQuantidadeCanhotosDoMes, formatarData, formatarValorBrasil } from '@/services/utils';
 import { Text } from 'vue';
 
@@ -217,12 +218,31 @@ export default {
     name: "home",
     data() {
         return {
+            post: {
+                empresa: "",
+                valor: "",
+                colaborador: "",
+                fileContent: "",
+                selectedStatus: null
+            },
+            status: [],
             canhotos: [],
+            colaboradores: [],
             totalCanhotos: 0,
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
             dataFormatada: "",
             nomeColaborador: "",
+            empresaRelacionada: "",
+            visible: false,
+            showUpload: false,
+            isEditMode: false,
+        }
+    },
+    watch: {
+        'post.selectedStatus': function (newVal) {
+
+            this.showUpload = newVal.code !== 1 && newVal.code !== 2;
         }
     },
     methods: {
@@ -235,7 +255,7 @@ export default {
 
         },
         getAllCanhotos() {
-            
+
             PostCanhotoDataService.getAll().then(response => {
 
                 this.canhotos = response.data;
@@ -254,6 +274,120 @@ export default {
             }
 
         },
+        getStatus() {
+            PostStatusDataService.getAll().then(response => {
+
+                this.status = response.data.map(st => ({
+                    name: st.nome,
+                    code: st.id
+                }));
+
+            })
+
+        },
+        newCanhoto() {
+            this.isEditMode = false;
+            this.visible = true;
+        },
+        saveCanhoto() {
+
+            const { empresa, valor, colaborador, selectedStatus, fileContent } = this.post;
+
+            var empresaId = 0;
+            var colaboradorId = 0;
+
+            PostUsuarioDataService.getUsuario(colaborador).then(responseColaborador => {
+
+                colaboradorId = responseColaborador.data;
+
+                PostEmpresaDataService.getEmpresa(empresa).then(responseEmpresa => {
+
+                    empresaId = responseEmpresa.data;
+
+                    if (colaboradorId === 0) {
+
+                        this.visible = false;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Não foi possível criar o canhoto: Colaborador não localizado.'
+                        });
+
+                        return false;
+                    }
+
+                    if (empresaId === 0) {
+
+                        this.visible = false;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Não foi possível criar o canhoto: Empresa não localizada.'
+                        });
+
+                        return false;
+                    }
+
+                    var data = {
+                        imagem: fileContent == "" ? null : btoa(fileContent),
+                        colaboradorId: colaboradorId,
+                        empresaId: empresaId,
+                        statusId: selectedStatus.code,
+                        valor: valor,
+                    }
+
+                    PostCanhotoDataService.create(data).then(response => {
+
+                        this.visible = false;
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Concluído!',
+                            text: 'Canhoto cadastrado com sucesso!'
+                        })
+
+                        this.getAllCanhotos();
+
+                        return true;
+
+                    }).catch(e => {
+
+                        this.visible = false;
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
+                        });
+
+                        return false;
+                    });
+                });
+            });
+
+            this.visible = false;
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Preencha todos os campos obrigatórios.'
+            })
+
+            return false;
+
+        },
+        onSelect(event) {
+            const file = event.files[0];
+            const reader = new FileReader();
+
+            reader.onload = e => {
+                this.post.fileContent = e.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        },
         formataData(data) {
             return formatarData(data);
         },
@@ -262,15 +396,28 @@ export default {
         },
         buscaColaborador(id) {
             PostUsuarioDataService.getUsuarioId(id).then(response => {
-                this.nomeColaborador =  response.data;
+                this.nomeColaborador = response.data;
             });
 
             return this.nomeColaborador;
+        },
+        getAllColaboradores() {
+            PostUsuarioDataService.getAll().then(response => {
+                this.colaboradores = response.data;
+            });
+        },
+        getEmpresa() {
+            PostEmpresaDataService.getAll().then(response => {
+                this.empresaRelacionada = response.data[0].nome;
+            });
         }
-        
+
 
     },
     mounted() {
+        this.getEmpresa();
+        this.getStatus(),
+        this.getAllColaboradores(),
         this.getAllCanhotos(),
         this.getQuantidadeCanhotosDoMesAtual(),
         this.getTodosCanhotosHoje()

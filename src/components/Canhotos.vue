@@ -106,8 +106,8 @@
                 <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'" :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '25rem' : '30rem' }">
                     <div v-if="!isEditMode" class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
-                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" value="teste" disabled />
-                    </div>  
+                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
+                    </div>
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
@@ -172,6 +172,7 @@ export default {
             showUpload: false,
             isEditMode: false,
             nomeColaborador: "",
+            empresaRelacionada: "",
             status: [],
             canhotos: []
         }
@@ -227,8 +228,6 @@ export default {
             try {
                 PostCanhotoDataService.getImagemCanhoto(id).then(response => {
 
-                    console.log(response.data);
-
                     const blob = new Blob([response.data], { type: 'image/jpeg' });
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -278,11 +277,11 @@ export default {
             var empresaId = 0;
             var colaboradorId = 0;
 
-            PostUsuarioDataService.getUsuario("Eduardo").then(responseColaborador => {
+            PostUsuarioDataService.getUsuario(colaborador).then(responseColaborador => {
 
                 colaboradorId = responseColaborador.data;
 
-                PostEmpresaDataService.getEmpresa("E-CANHOTO SOLUCOES DE DESENVOLVIMENTO").then(responseEmpresa => {
+                PostEmpresaDataService.getEmpresa(empresa).then(responseEmpresa => {
 
                     empresaId = responseEmpresa.data;
 
@@ -443,9 +442,15 @@ export default {
             });
 
             return this.nomeColaborador;
+        },
+        getEmpresa() {
+            PostEmpresaDataService.getAll().then(response => {
+                this.empresaRelacionada = response.data[0].nome;
+            });
         }
     },
     mounted() {
+        this.getEmpresa(),
         this.getStatus(),
         this.getAllCanhotos(),
         this.getQuantidadeCanhotosDoMesAtual(),

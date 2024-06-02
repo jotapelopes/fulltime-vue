@@ -1,8 +1,10 @@
 <script setup>
 import HomeSite from '../components/Home.vue';
 import '@/assets/style/home.css';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import Sidebar from '@/components/Sidebar.vue';
+
+const homeSiteRef = ref(null);
 
 onMounted(() => {
     const body = document.querySelector("body");
@@ -13,12 +15,18 @@ onMounted(() => {
         sidebar.classList.toggle("close");
     });
 });
+
+function handleNewCanhoto() {
+    if (homeSiteRef.value) {
+        homeSiteRef.value.newCanhoto();
+    }
+}
+
 </script>
 
 <template>
   <main>
-    <Sidebar/>
-    <HomeSite
-    />
+    <Sidebar @newCanhoto="handleNewCanhoto" />
+    <HomeSite ref="homeSiteRef" />
   </main>
 </template>
