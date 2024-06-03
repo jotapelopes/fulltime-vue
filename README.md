@@ -32,15 +32,11 @@ Primeiro contato visual que o cliente (empresa) terá com nosso sistema.
 
 ![image](https://github.com/edueevaristo/fulltime-ecanhoto/assets/127902932/0c24bb09-5f5f-41a1-b6bf-bc841fdcccad)
 
-![image](https://github.com/edueevaristo/fulltime-ecanhoto/assets/127902932/4a754f9b-3fdd-487c-820a-2a1ddf36731a)
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/ce579d8d-cbf0-41be-97c7-7936f94dbdcc)
 
-O objetivo da landing page é permitir a visualização do produto e da marca com uma breve descrição das funcionalidades e suas formas de contato para capitação do consumidor.
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/3271e3ff-38a6-4b15-86a4-f8bf4b877f2e)
 
-## Tela de seleção de tipo de perfil
-
-![image](https://github.com/edueevaristo/fulltime-ecanhoto/assets/127902932/be3ae323-2e3e-4f2b-a87c-4cb4e41df583)
-
-Ao selecionar login, o usuário será redirecionado para a tela de seleção entre "Empresa" e "Colaborador", uma vez que ambos possuem diferentes ações dentro do sistema. 
+O objetivo da landing page é permitir a visualização do produto e da marca com uma breve descrição das funcionalidades e suas formas de contato para capitação do consumidor. Além dessa apresentação inicial da marca, é feito uma exbição dos valores e possibildade de compra dos produtos voltados para o gerenciamento de e-canhotos. 
 
 ## Login da empresa
 
