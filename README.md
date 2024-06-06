@@ -60,12 +60,22 @@ Ao usuário selecionar "Colaborador" na tela de direcionamento, será exibido um
 
 ![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/f41454e8-5742-4165-97e5-824d253901a8)
 
-Ao realizar o cadastro/login, o usuário é direcionado para a tela Home de gerenciamento dos canhotos. Podendo ver os usuários cadastrados e últimos canhotos registrados. A tela acompanha um sidebar que direciona para outros componentes.
-
-## Novo Canhoto
-
-
+Ao realizar o cadastro/login, o usuário é direcionado para a tela Home de gerenciamento dos canhotos. Podendo ver os usuários cadastrados e últimos canhotos registrados. A tela acompanha um sidebar que direciona para componentes específicos de gerenciamento. 
 
 ## Canhotos
 
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/8a8f5437-dcd8-431c-bf5c-483e3b5653c8)
+
+Ao selecionar "Canhotos" da sidebar, o usuário é direcionado para o componete de canhotos, que permite uma visualização ampla dos canhotos cadastrados, sendo possível realizar inserção de canhotos pela tela.
+
+## Novo canhoto
+
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/8dca33bd-32b5-41de-97b8-9c3c6944316a)
+
+Quando selecionado o botão "Novo canhoto" do componente de canhotos ou da sidebar, será direcionado para o modal de cadastro. O campo status é um dropdown que permite inserção de status desejados pelo cliente via API, porém ao ter o status "Entrega realizada" é liberado o botão de upload da foto do canhoto físico.
+
 ## Colaboradores
+
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/3eb6061c-061e-42bf-a87c-18f679bbab71)
+
+Quando selecionado "Colaboradores", é liberado a listagem de todos os usuários cadastrados e vinculados com a empresa-cliente da fulltime. 
