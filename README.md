@@ -78,4 +78,4 @@ Quando selecionado o botão "Novo canhoto" do componente de canhotos ou da sideb
 
 ![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/3eb6061c-061e-42bf-a87c-18f679bbab71)
 
-Quando selecionado "Colaboradores", é liberado a listagem de todos os usuários cadastrados e vinculados com a empresa-cliente da fulltime. 
+Quando selecionado "Colaboradores", é liberado a listagem de todos os usuários cadastrados e vinculados com a empresa-cliente da fulltime, com opção de edição.
