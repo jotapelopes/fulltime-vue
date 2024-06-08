@@ -1,3 +1,4 @@
+import { useAuth } from '@/stores/auth';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -16,6 +17,9 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
+      meta: {
+        auth: true
+      },
       component: () => import('../views/HomeView.vue')
     },
     {
@@ -40,5 +44,17 @@ const router = createRouter({
     }
   ]
 })
+
+
+// beforeEach é um metodo para validarmos algum logica *antes de cada* rota se acessada 
+router.beforeEach((to, from) => {
+  if(to.meta?.auth){
+    const auth = useAuth();
+    if(auth.user && auth.token){
+      const isAuthenticated = auth.checkToken()
+
+      console.log(isAuthenticated)
+    }
+}});
 
 export default router

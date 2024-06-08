@@ -282,7 +282,10 @@ export default {
                     code: st.id
                 }));
 
-            })
+            }).catch(e => {
+                console.log(e)
+            }).finally( () => {}
+            );
 
         },
         newCanhoto() {
@@ -404,12 +407,16 @@ export default {
         getAllColaboradores() {
             PostUsuarioDataService.getAll().then(response => {
                 this.colaboradores = response.data;
-            });
+            }).catch(e => {
+                console.log(e)
+            });;
         },
         getEmpresa() {
             PostEmpresaDataService.getAll().then(response => {
                 this.empresaRelacionada = response.data[0].nome;
-            });
+            }).catch(e => {
+                console.log(e)
+            });;
         }
 
 
