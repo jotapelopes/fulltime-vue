@@ -22,9 +22,10 @@
                     <div class="card me-3">
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
-                                <h5 class="card-title mt-3">Usuários</h5>
-                                <h1 class="card-text mt-3">18</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span> Hoje
+                                <h5 class="card-title mt-3">Usuários do mês</h5>
+                                <h1 class="card-text mt-3"> {{ totalUsuariosDoMes }}</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
+                                        totalUsuariosHoje }} </span> Hoje
                                 </h6>
                             </div>
                             <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2 img-fixed">
@@ -33,13 +34,13 @@
                 </div>
 
                 <div class="col-lg-3 cards-colunas">
-                    <div class="card ">
+                    <div class="card">
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
                                 <h5 class="card-title mt-3">Canhotos do mês</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotosDoMes }}</h1>
                                 <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
-                                        totalCanhotosHoje }}</span> Hoje</h6>
+                                    totalCanhotosHoje }}</span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2 img-fixed">
                         </div>
@@ -53,7 +54,7 @@
                                 <h5 class="card-title mt-3">Total de canhotos</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotos }}</h1>
                                 <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
-                                        totalCanhotosHoje }} </span> Hoje</h6>
+                                    totalCanhotosHoje }} </span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-total-canhotos.png" class="mt-2 img-fixed">
                         </div>
@@ -94,13 +95,11 @@
                         <Column field="usuarioAdmin" header="É admin">
 
                             <template #body="slotProps">
-                                <Badge 
-                                class="d-flex justify-content-center" 
-                                :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
-                                :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"
-                                ></Badge>
+                                <Badge class="d-flex justify-content-center"
+                                    :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
+                                    :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"></Badge>
                             </template>
-                            
+
                         </Column>
                         <Column field="dataInclusao" header="Data de inclusão">
                             <template #body="slotProps">
@@ -160,16 +159,19 @@
 
                 </div>
 
-                <Dialog v-model:visible="visible" modal header="Novo Canhoto" :style="{ width: '55rem', height: '30rem' }">
+                <Dialog v-model:visible="visible" modal header="Novo Canhoto"
+                    :style="{ width: '55rem', height: '30rem' }">
                     <div class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
-                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
-                    </div>  
+                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada
+                            disabled />
+                    </div>
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="valor" class="mb-2">Valor do canhoto</label><br>
-                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2" v-model="post.valor" />
+                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2"
+                                v-model="post.valor" />
                         </div>
 
                         <div class="col-md-3 mb-3" v-if="!isEditMode">
@@ -179,18 +181,23 @@
 
                         <div class="col-md-5 mb-3">
                             <label for="status" class="font-semibold mb-2">Status</label><br>
-                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name" placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
+                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
                         </div>
                     </div>
 
                     <div class="flex align-items-center gap-3 mb-5" v-show="showUpload">
                         <label for="image" class="font-semibold mb-2">Selecione a imagem do canhoto</label><br>
-                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @select="onSelect" class="w-15" chooseLabel="Upload" />
+                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000"
+                            @select="onSelect" class="w-15" chooseLabel="Upload" />
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-5">
-                        <Button type="button" severity="secondary" @click="visible = false" class="btn btn-danger me-1">Cancelar</Button>
-                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()" class="btn btn-success">{{ isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
+                        <Button type="button" severity="secondary" @click="visible = false"
+                            class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()"
+                            class="btn btn-success">{{
+                                isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
                     </div>
                 </Dialog>
 
@@ -228,12 +235,19 @@ export default {
             status: [],
             canhotos: [],
             colaboradores: [],
+
+            totalUsuarios: 0,
+            totalUsuariosDoMes: 0,
+            totalUsuariosHoje: 0,
+
             totalCanhotos: 0,
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
+
             dataFormatada: "",
             nomeColaborador: "",
             empresaRelacionada: "",
+
             visible: false,
             showUpload: false,
             isEditMode: false,
@@ -246,14 +260,6 @@ export default {
         }
     },
     methods: {
-        getTodosCanhotosHoje(canhotos) {
-
-            if (canhotos) {
-                const getTotalDeCanhotosHoje = getCanhotosHoje(canhotos);
-                this.totalCanhotosHoje = getTotalDeCanhotosHoje;
-            }
-
-        },
         getAllCanhotos() {
 
             PostCanhotoDataService.getAll().then(response => {
@@ -266,11 +272,44 @@ export default {
             });
 
         },
+        getTodosCanhotosHoje(canhotos) {
+
+            if (canhotos) {
+                const getTotalDeCanhotosHoje = getCanhotosHoje(canhotos);
+                this.totalCanhotosHoje = getTotalDeCanhotosHoje;
+            }
+
+        },
         getQuantidadeCanhotosDoMesAtual(canhotos) {
 
             if (canhotos) {
                 const getQuantidaddeCanhotosDoMesAtual = getQuantidadeCanhotosDoMes(canhotos);
                 this.totalCanhotosDoMes = getQuantidaddeCanhotosDoMesAtual;
+            }
+
+        },
+        getAllUsuarios() {
+
+            PostUsuarioDataService.getAll().then(response => {
+                this.usuarios = response.data;
+                this.totalUsuarios = this.usuarios.length;
+                this.getQuantidadeUsuariosDoMesAtual(this.usuarios);
+                this.getTodosUsuariosHoje(this.usuarios);
+            });
+        },
+        getQuantidadeUsuariosDoMesAtual(usuarios) {
+
+            if (usuarios) {
+                const getQuantidaddeUsuariosDoMesAtual = getQuantidadeCanhotosDoMes(usuarios);
+                this.totalUsuariosDoMes = getQuantidaddeUsuariosDoMesAtual;
+            }
+
+        },
+        getTodosUsuariosHoje(usuarios) {
+
+            if (usuarios) {
+                const getTotalDeUsuariosHoje = getCanhotosHoje(usuarios);
+                this.totalUsuariosHoje = getTotalDeUsuariosHoje;
             }
 
         },
@@ -284,7 +323,7 @@ export default {
 
             }).catch(e => {
                 console.log(e)
-            }).finally( () => {}
+            }).finally(() => { }
             );
 
         },
@@ -362,73 +401,80 @@ export default {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
+                            text: Ocorreu um erro ao enviar os dados.Tente novamente mais tarde.Erros: ${ e }
                         });
 
-                        return false;
-                    });
+                    return false;
                 });
             });
+        });
 
-            this.visible = false;
+        this.visible = false;
 
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Preencha todos os campos obrigatórios.'
-            })
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Preencha todos os campos obrigatórios.'
+        })
 
             return false;
 
-        },
-        onSelect(event) {
-            const file = event.files[0];
-            const reader = new FileReader();
-
-            reader.onload = e => {
-                this.post.fileContent = e.target.result;
-            };
-
-            reader.readAsDataURL(file);
-        },
-        formataData(data) {
-            return formatarData(data);
-        },
-        formataValor(valor) {
-            return formatarValorBrasil(valor);
-        },
-        buscaColaborador(id) {
-            PostUsuarioDataService.getUsuarioId(id).then(response => {
-                this.nomeColaborador = response.data;
-            });
-
-            return this.nomeColaborador;
-        },
-        getAllColaboradores() {
-            PostUsuarioDataService.getAll().then(response => {
-                this.colaboradores = response.data;
-            }).catch(e => {
-                console.log(e)
-            });;
-        },
-        getEmpresa() {
-            PostEmpresaDataService.getAll().then(response => {
-                this.empresaRelacionada = response.data[0].nome;
-            }).catch(e => {
-                console.log(e)
-            });;
-        }
-
-
     },
-    mounted() {
-        this.getEmpresa();
-        this.getStatus(),
+    onSelect(event) {
+        const file = event.files[0];
+        const reader = new FileReader();
+
+        reader.onload = e => {
+            this.post.fileContent = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    },
+    formataData(data) {
+        return formatarData(data);
+    },
+    formataValor(valor) {
+        return formatarValorBrasil(valor);
+    },
+    buscaColaborador(id) {
+        PostUsuarioDataService.getUsuarioId(id).then(response => {
+            this.nomeColaborador = response.data;
+        });
+
+        return this.nomeColaborador;
+    },
+    getAllColaboradores() {
+        PostUsuarioDataService.getAll().then(response => {
+            this.colaboradores = response.data;
+        }).catch(e => {
+            console.log(e)
+        });;
+    },
+    getEmpresa() {
+        PostEmpresaDataService.getAll().then(response => {
+            this.empresaRelacionada = response.data[0].nome;
+        }).catch(e => {
+            console.log(e)
+        });;
+    }
+
+
+},
+mounted() {
+
+    this.getEmpresa();
+    this.getStatus(),
         this.getAllColaboradores(),
+
         this.getAllCanhotos(),
         this.getQuantidadeCanhotosDoMesAtual(),
-        this.getTodosCanhotosHoje()
-    }
+        this.getTodosCanhotosHoje(),
+
+        this.getAllUsuarios(),
+        this.getQuantidadeUsuariosDoMesAtual(),
+        this.getTodosUsuariosHoje()
+
+}
 }
 
 </script>
