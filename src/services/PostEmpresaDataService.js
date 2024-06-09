@@ -14,6 +14,10 @@ class PostEmpresaDataService {
         return http.get("/Empresa/nome/" + param)
     }
 
+    getEmpresaPorId(param) {
+        return http.get("/Empresa/id/" + param)
+    }
+
 }
 
 export default new PostEmpresaDataService();

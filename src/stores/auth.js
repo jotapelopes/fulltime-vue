@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
-import http from "@/http-common";;
+import http from "@/http-common";
 
 export const useAuth = defineStore('auth', () => {
 
@@ -19,7 +19,7 @@ export const useAuth = defineStore('auth', () => {
   }
 
   const isAuthenticated = computed(() => {
-      return token.value && user.value;
+    return token.value && user.value;
   })
 
   async function checkToken() {
@@ -45,12 +45,18 @@ export const useAuth = defineStore('auth', () => {
     user.value = '';
   }
 
+  async function getUser(id = '') {
+
+    return localStorage.getItem('user');
+  }
+
   return {
     token,
     user,
     setToken,
     setUser,
     checkToken,
+    getUser,
     isAuthenticated,
     // fullName,
     clear

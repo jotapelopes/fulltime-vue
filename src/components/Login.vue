@@ -40,7 +40,7 @@
           <RouterLink to="/home" id="btnLogin" class="btn btn-sm w-75 d-flex justify-content-center" @click.prevent="login">
             Login
           </RouterLink>
-          <RouterLink to="/site" id="btnLogin" class="btn btn-sm w-25 ms-2 d-flex justify-content-center">
+          <RouterLink to="/" id="btnLogin" class="btn btn-sm w-25 ms-2 d-flex justify-content-center">
             Voltar <i class='bx bx-undo'></i>
           </RouterLink>
         </div>
