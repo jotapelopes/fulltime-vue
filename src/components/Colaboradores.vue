@@ -26,7 +26,7 @@
 
                     <DataTable :value="colaboradores" paginator :rows="5">
                         <Column field="id" header="ID"></Column>
-                        <Column field="nome" header="Nome"></Column>
+                        <Column field="name" header="Nome"></Column>
                         <Column field="email" header="Email"></Column>
                         <Column field="dataNascimento" header="Data de Nascimento"></Column>
                         <Column field="usuarioAdmin" header="É admin">
@@ -34,8 +34,8 @@
                             <template #body="slotProps">
                                 <Badge 
                                 class="d-flex justify-content-center" 
-                                :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
-                                :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"
+                                :value="slotProps.data.isAdmin ? 'SIM' : 'NÃO'"
+                                :severity="slotProps.data.isAdmin ? 'success' : 'danger'"
                                 ></Badge>
                             </template>
                             
@@ -47,7 +47,7 @@
                         </Column>
                         <Column header="Opções">
                             <template #body="slotProps">
-                                <i class='bx bxs-edit' @click="editCanhoto(slotProps.data.id)"></i>
+                                <i class='bx bxs-edit' @click="editUsuario(slotProps.data.id)"></i>
                             </template>
                         </Column>
                     </DataTable>
@@ -75,6 +75,7 @@ export default {
     },
     methods: {
         getAllColaboradores() {
+            
             PostUsuarioDataService.getAll().then(response => {
                 this.colaboradores = response.data;
             });

@@ -10,10 +10,6 @@ class PostUsuarioDataService {
         return http.post("/Users/create", data)
     }
 
-    // getUsuario(param) {
-    //     return http.get("/User/nome/" + param)
-    // }
-
     getUsuarioId(param) {
         return http.get("/Users/id/" + param)
     }
