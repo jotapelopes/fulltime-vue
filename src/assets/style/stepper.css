@@ -131,29 +131,20 @@ p {
   font-family: 'Montserrat', sans-serif;
 }
 
-.voltar {
+.voltar{
   display: flex;
-  padding: 0.375rem 0.75rem;
-  /* 6px 12px */
+  padding: 0.375rem 2.7rem;
   justify-content: center;
-  align-items: center;
   border-radius: 0.3125rem;
-  /* 5px */
-  background: var(--Neutral-500, #adb5bd);
+  background-color: var(--Neutral-500, #adb5bd);
   border: none;
   color: #fff;
   text-align: center;
-  font-family: Montserrat;
+  font-family: sans-serif;
   font-size: 1rem;
-  /* 16px */
-  font-style: normal;
   font-weight: 500;
   line-height: 1.5rem;
-  /* 24px */
-  font-family: 'Montserrat', sans-serif;
-
 }
-
 .avancar {
   display: flex;
   padding: 0.375rem 0.75rem;
