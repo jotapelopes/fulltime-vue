@@ -18,16 +18,9 @@ export const useAuth = defineStore('auth', () => {
     user.value = userValue;
   }
 
-//   const isAuthenticated = computed(() => {
-//       return token.value && user.value;
-//   })
-
-//   const fullName = computed(() => {
-//     if (user.value) {
-//       return user.value.firstName + ' ' + user.value.lastName;
-//     }
-//     return '';
-//   })
+  const isAuthenticated = computed(() => {
+      return token.value && user.value;
+  })
 
   async function checkToken() {
     try {
@@ -38,19 +31,19 @@ export const useAuth = defineStore('auth', () => {
           Authorization: tokenAuth,
         },
       });
-      // console.log(data.value)
       return data;
     } catch (error) {
       console.log(error);
     }
   }
 
-//   function clear() {
-//     localStorage.removeItem('token');
-//     localStorage.removeItem('user');
-//     token.value = '';
-//     user.value = '';
-//   }
+  function clear() {
+    console.log('limpando')
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    token.value = '';
+    user.value = '';
+  }
 
   return {
     token,
@@ -58,9 +51,9 @@ export const useAuth = defineStore('auth', () => {
     setToken,
     setUser,
     checkToken,
-    // isAuthenticated,
+    isAuthenticated,
     // fullName,
-    // clear
+    clear
   }
 
 })

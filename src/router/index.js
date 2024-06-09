@@ -1,5 +1,5 @@
-import { useAuth } from '@/stores/auth';
 import { createRouter, createWebHistory } from 'vue-router'
+import routes from '@/router/routes.js';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,11 +25,17 @@ const router = createRouter({
     {
       path: '/canhotos',
       name: 'canhotos',
+      meta: {
+        auth: true
+      },
       component: () => import('../views/CanhotoView.vue')
     },
     {
       path: '/colaboradores',
       name: 'colaboradores',
+      meta: {
+        auth: true
+      },
       component: () => import('../views/ColaboradoresView.vue')
     },
     {
@@ -40,21 +46,15 @@ const router = createRouter({
     {
       path: '/usuario',
       name: 'usuario',
+      meta: {
+        auth: true
+      },
       component: () => import('../views/UsuarioView.vue')
     }
   ]
 })
 
 
-// beforeEach é um metodo para validarmos algum logica *antes de cada* rota se acessada 
-router.beforeEach((to, from) => {
-  if(to.meta?.auth){
-    const auth = useAuth();
-    if(auth.user && auth.token){
-      const isAuthenticated = auth.checkToken()
-
-      console.log(isAuthenticated)
-    }
-}});
+router.beforeEach(routes);
 
 export default router
