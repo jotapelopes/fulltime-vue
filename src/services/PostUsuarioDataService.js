@@ -3,19 +3,15 @@ import http from "@/http-common";
 class PostUsuarioDataService {
 
     getAll() {
-        return http.get("/Colaborador");
+        return http.get("/Users");
     }
 
     create(data) {
-        return http.post("/Colaborador", data)
-    }
-
-    getUsuario(param) {
-        return http.get("/Colaborador/nome/" + param)
+        return http.post("/Users/create", data)
     }
 
     getUsuarioId(param) {
-        return http.get("/Colaborador/id/" + param)
+        return http.get("/Users/id/" + param)
     }
 
 }

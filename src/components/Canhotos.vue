@@ -22,13 +22,14 @@
                         <h4 class="mt-4 ms-3 mb-3 canhotos-table-title">Últimos canhotos</h4>
                     </div>
 
-                    <DataTable :value="canhotos" paginator :rows="7">
+                    <DataTable :value="canhotos" paginator :rows="5">
                         <Column field="id" header="ID" filterField="id"></Column>
-                        <Column field="valorCanhoto" header="Valor do Recibo">
+                        <Column field="valorCanhoto" header="Valor">
                             <template #body="slotProps">
                                 {{ this.formataValor(slotProps.data.valorCanhoto) }}
                             </template>
                         </Column>
+                        <Column field="numNf" header="NF"></Column>
                         <Column field="colaboradorId" header="Gerador">
                             <template #body="slotProps">
                                 {{ this.buscaColaborador(slotProps.data.colaboradorId) }}
@@ -42,10 +43,10 @@
                         <Column field="autenticado" header="Autenticado">
                             <template #body="slotProps">
                                 <Badge 
-                                class="d-flex justify-content-center" 
-                                :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
-                                :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'"
-                                ></Badge>
+                                    class="d-flex justify-content-center" 
+                                    :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
+                                    :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'">
+                                </Badge>
                             </template>
                         </Column>
                         <Column header="Opções">
@@ -55,7 +56,10 @@
                         </Column>
                         <Column header="Obter canhoto">
                             <template #body="slotProps">
-                                <i class='bx bxs-file-export' @click="verImagem(slotProps.data.id)"></i>
+                                <i class='bx bxs-file-export' 
+                                :style="{ color: slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'green' : 'red' }" 
+                                @click="verImagem(slotProps.data.id)">
+                                </i>
                             </template>
                         </Column>
                     </DataTable>
@@ -68,12 +72,9 @@
                         <Button label="Novo Canhoto +" @click="newCanhoto"
                             class="btn btn-outline-danger busca-canhoto-container-2-text" />
 
-                        <!-- <div class="input-group">
-                            <input class="busca-canhoto-container-2-input" type="text" name="Buscar canhotos"
-                                id="buscaCanhotoId" placeholder="Buscar canhotos" v-model="searchQuery">
-                                <button class="btn btn-outline-secondary" type="button" @click="filterCanhotos"><i class='bx bx-search'></i></button>
-                        </div> -->
-
+                        <div class="input-group mr-5">
+                            <input class="busca-canhoto-container-2-input" type="text" name="Buscar canhotos" id="buscaCanhotoId" placeholder="Buscar canhoto via NF">
+                        </div>
                         <div class="busca-canhoto-container-2-cards">
 
                             <div class="card card-styles busca-canhoto-container-2-card-div">
@@ -103,7 +104,7 @@
                     </div>
                 </div>
 
-                <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'" :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '25rem' : '30rem' }">
+                <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'" :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '30rem' : '33.9rem' }">
                     <div v-if="!isEditMode" class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
                         <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
@@ -111,19 +112,30 @@
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="valor" class="mb-2">Valor do canhoto</label><br>
+                            <label for="valor" class="mb-2">Valor do canhoto <span class="text-danger">*</span></label><br>
                             <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2" v-model="post.valor" />
                         </div>
 
-                        <div class="col-md-3 mb-3" v-if="!isEditMode">
-                            <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
-                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador" />
+                        <div class="col-md-4 mb-3">
+                            <label for="numNf" class="mb-2">Número da Nota fiscal <span class="text-danger">*</span></label><br>
+                            <InputNumber id="numNf" class="flex-auto w-100" v-model="post.numeroNota" required/>
                         </div>
 
-                        <div class="col-md-5 mb-3">
-                            <label for="status" class="font-semibold mb-2">Status</label><br>
+                        <div class="col-md-4 mb-3">
+                            <label for="chaveNf" class="mb-2">Número da Chave da Nota Fiscal <span class="text-warning">(Opcional)</span></label><br>
+                            <InputNumber id="chaveNf" class="flex-auto w-100" v-model="post.chaveNf" required/>
+                        </div>
+
+                        <div class="col-md-4 mb-3" v-if="!isEditMode">
+                            <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
+                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador" :value=nomeUsuario />
+                        </div>
+
+                        <div class="col-md-8 mb-3">
+                            <label for="status" class="font-semibold mb-2">Status <span class="text-danger">*</span></label><br>
                             <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name" placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
                         </div>
+                        
                     </div>
 
                     <div class="flex align-items-center gap-3 mb-5" v-show="showUpload">
@@ -145,13 +157,14 @@
 
 <script>
 
-import { ref, onMounted } from 'vue';
 import PostCanhotoDataService from '@/services/PostCanhotoDataService';
 import PostStatusDataService from '@/services/PostStatusDataService';
 import Swal from 'sweetalert2';
 import PostUsuarioDataService from '@/services/PostUsuarioDataService';
 import PostEmpresaDataService from '@/services/PostEmpresaDataService';
 import { getCanhotosHoje, getQuantidadeCanhotosDoMes, formatarData, formatarValorBrasil } from '@/services/utils';
+import { useAuth } from "@/stores/auth.js";
+
 
 export default {
 
@@ -163,16 +176,20 @@ export default {
                 valor: "",
                 colaborador: "",
                 fileContent: "",
-                selectedStatus: null
+                selectedStatus: null,
+                chaveNf: 0,
+                numeroNota: 0
             },
             totalCanhotos: 0,
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
+            usuarioId: 0,
             visible: false,
             showUpload: false,
             isEditMode: false,
             nomeColaborador: "",
             empresaRelacionada: "",
+            nomeUsuario: "",
             status: [],
             canhotos: []
         }
@@ -180,7 +197,7 @@ export default {
     watch: {
         'post.selectedStatus': function (newVal) {
 
-            this.showUpload = newVal.code !== 1 && newVal.code !== 2;
+            this.showUpload = newVal.code == 3;
         }
     },
     methods: {
@@ -226,22 +243,30 @@ export default {
         async verImagem(id) {
 
             try {
-                PostCanhotoDataService.getImagemCanhoto(id).then(response => {
 
-                    const blob = new Blob([response.data], { type: 'image/jpeg' });
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    a.download = 'imagem.jpg';
-                    a.target = '_blank';
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
+                const response = await PostCanhotoDataService.getImagemCanhoto(id);
 
-                });
+                if (response.status !== 200) {
+
+                    throw new Error('Erro ao obter a imagem: ' + response.statusText);
+                }
+        
+                const base64Image = `data:image/jpeg;base64,${response.data}`;
+                const blob = await fetch(base64Image).then(res => res.blob());
+                const url = window.URL.createObjectURL(blob);
                 
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = `canhoto_${id}.jpg`;
+                a.target = '_blank';
+                document.body.appendChild(a);
+                a.click();
+                
+                window.URL.revokeObjectURL(url);
+
             } catch (error) {
+
                 console.error('Erro ao obter a imagem:', error);
             }
         },
@@ -272,79 +297,79 @@ export default {
         },
         saveCanhoto() {
 
-            const { empresa, valor, colaborador, selectedStatus, fileContent } = this.post;
+            const {valor, selectedStatus, fileContent, chaveNf, numeroNota} = this.post;
 
             var empresaId = 0;
             var colaboradorId = 0;
 
-            PostUsuarioDataService.getUsuario(colaborador).then(responseColaborador => {
+            colaboradorId = this.usuarioId;
 
-                colaboradorId = responseColaborador.data;
+            PostEmpresaDataService.getEmpresa(this.empresaRelacionada).then(responseEmpresa => {
 
-                PostEmpresaDataService.getEmpresa(empresa).then(responseEmpresa => {
+                empresaId = responseEmpresa.data;
 
-                    empresaId = responseEmpresa.data;
+                if (colaboradorId === 0) {
 
-                    if (colaboradorId === 0) {
+                    this.visible = false;
 
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Não foi possível criar o canhoto: Colaborador não localizado.'
-                        });
-
-                        return false;
-                    }
-
-                    if (empresaId === 0) {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Não foi possível criar o canhoto: Empresa não localizada.'
-                        });
-
-                        return false;
-                    }
-
-                    var data = {
-                        imagem: fileContent == "" ? null : btoa(fileContent),
-                        colaboradorId: colaboradorId,
-                        empresaId: empresaId,
-                        statusId: selectedStatus.code,
-                        valor: valor,
-                    }
-
-                    PostCanhotoDataService.create(data).then(response => {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Concluído!',
-                            text: 'Canhoto cadastrado com sucesso!'
-                        })
-
-                        this.getAllCanhotos();
-
-                        return true;
-
-                    }).catch(e => {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
-                        });
-
-                        return false;
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível criar o canhoto: Colaborador não localizado.'
                     });
+
+                    return false;
+                }
+
+                if (empresaId === 0) {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível criar o canhoto: Empresa não localizada.'
+                    });
+
+                    return false;
+                }
+
+                var data = {
+
+                    imagem: fileContent || "",
+                    colaboradorId: colaboradorId,
+                    empresaId: empresaId,
+                    statusId: selectedStatus.code,
+                    valor: valor,
+                    chaveNf: chaveNf,
+                    numNf: numeroNota,
+                }
+
+                PostCanhotoDataService.create(data).then(response => {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Concluído!',
+                        text: 'Canhoto cadastrado com sucesso!'
+                    })
+                    
+                    this.getAllCanhotos();
+
+                    return true;
+
+                }).catch(e => {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
+                    });
+
+                    return false;
                 });
             });
 
@@ -361,7 +386,7 @@ export default {
         },
         updateCanhoto(id) {
 
-            const { valor, selectedStatus, fileContent } = this.post;
+            const { valor, selectedStatus, fileContent, chaveNf, numeroNf } = this.post;
 
             PostCanhotoDataService.getCanhotoId(id).then(response => {
 
@@ -373,11 +398,13 @@ export default {
                     var data = {
 
                         id: id,
-                        imagemCanhoto: fileContent == "" ? "" : btoa(fileContent),
+                        imagemCanhoto: fileContent || "",
                         colaboradorId: colaboradorId,
                         empresaId: empresaId,
                         statusId: selectedStatus.code,
                         valorCanhoto: valor,
+                        chaveNf: chaveNf,
+                        numeroNf: numeroNf
                     }
 
                     PostCanhotoDataService.update(data).then(response => {
@@ -425,7 +452,8 @@ export default {
             const reader = new FileReader();
 
             reader.onload = e => {
-                this.post.fileContent = e.target.result;
+                const base64Data = e.target.result.split(',')[1];
+                this.post.fileContent = base64Data;
             };
 
             reader.readAsDataURL(file);
@@ -443,14 +471,26 @@ export default {
 
             return this.nomeColaborador;
         },
-        getEmpresa() {
-            PostEmpresaDataService.getAll().then(response => {
-                this.empresaRelacionada = response.data[0].nome;
+        getEmpresaId() {
+
+            const auth = useAuth();
+
+            auth.getUser().then(response => {
+
+                var responseUser = JSON.parse(response);
+
+                PostEmpresaDataService.getEmpresaPorId(responseUser.empresaId).then(response => {
+
+                    console.log(responseUser);
+                    this.empresaRelacionada = response.data;
+                    this.nomeUsuario = responseUser.name;
+                    this.usuarioId = responseUser.id;
+                });
             });
         }
     },
     mounted() {
-        this.getEmpresa(),
+        this.getEmpresaId(),
         this.getStatus(),
         this.getAllCanhotos(),
         this.getQuantidadeCanhotosDoMesAtual(),

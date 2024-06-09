@@ -22,9 +22,9 @@
                     <div class="card me-3">
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
-                                <h5 class="card-title mt-3">Usuários</h5>
-                                <h1 class="card-text mt-3">18</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">28 </span> Hoje
+                                <h5 class="card-title mt-3">Usuários do mês</h5>
+                                <h1 class="card-text mt-3"> {{ totalUsuariosDoMes }}</h1>
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalUsuariosHoje }} </span> Hoje
                                 </h6>
                             </div>
                             <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2 img-fixed">
@@ -33,13 +33,13 @@
                 </div>
 
                 <div class="col-lg-3 cards-colunas">
-                    <div class="card ">
+                    <div class="card">
                         <div class="card-body d-flex align-items-start justify-content-between">
                             <div>
                                 <h5 class="card-title mt-3">Canhotos do mês</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotosDoMes }}</h1>
                                 <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
-                                        totalCanhotosHoje }}</span> Hoje</h6>
+                                    totalCanhotosHoje }}</span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-canhotos-mes.png" class="mt-2 img-fixed">
                         </div>
@@ -53,7 +53,7 @@
                                 <h5 class="card-title mt-3">Total de canhotos</h5>
                                 <h1 class="card-text mt-3"> {{ totalCanhotos }}</h1>
                                 <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
-                                        totalCanhotosHoje }} </span> Hoje</h6>
+                                    totalCanhotosHoje }} </span> Hoje</h6>
                             </div>
                             <img src="@/assets/img/icone-total-canhotos.png" class="mt-2 img-fixed">
                         </div>
@@ -78,29 +78,25 @@
                     <div class="text-table d-flex text-table-botoes">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Gestão de usuários</h4>
 
-                        <RouterLink to="/novo-usuario"
-                            class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
-                            Novo Usuário <i
-                                class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
-                        </RouterLink>
+                        <Button  @click="newUser" class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+                            Novo Usuário <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
+                        </button>
 
                     </div>
 
                     <DataTable :value="colaboradores" paginator :rows="7">
                         <Column field="id" header="ID"></Column>
-                        <Column field="nome" header="Nome"></Column>
+                        <Column field="name" header="Nome"></Column>
                         <Column field="email" header="Email"></Column>
                         <Column field="dataNascimento" header="Data de Nascimento"></Column>
                         <Column field="usuarioAdmin" header="É admin">
 
                             <template #body="slotProps">
-                                <Badge 
-                                class="d-flex justify-content-center" 
-                                :value="slotProps.data.usuarioAdmin ? 'SIM' : 'NÃO'"
-                                :severity="slotProps.data.usuarioAdmin ? 'success' : 'danger'"
-                                ></Badge>
+                                <Badge class="d-flex justify-content-center"
+                                    :value="slotProps.data.isAdmin ? 'SIM' : 'NÃO'"
+                                    :severity="slotProps.data.isAdmin ? 'success' : 'danger'"></Badge>
                             </template>
-                            
+
                         </Column>
                         <Column field="dataInclusao" header="Data de inclusão">
                             <template #body="slotProps">
@@ -160,16 +156,20 @@
 
                 </div>
 
-                <Dialog v-model:visible="visible" modal header="Novo Canhoto" :style="{ width: '55rem', height: '30rem' }">
+                <Dialog v-model:visible="visible" modal header="Novo Canhoto"
+                    :style="{ width: '55rem', height: '30rem' }">
                     <div class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
-                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
-                    </div>  
+                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada
+                            disabled />
+                    </div>
 
                     <div class="row">
+
                         <div class="col-md-4 mb-3">
                             <label for="valor" class="mb-2">Valor do canhoto</label><br>
-                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2" v-model="post.valor" />
+                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2"
+                                v-model="post.valor" />
                         </div>
 
                         <div class="col-md-3 mb-3" v-if="!isEditMode">
@@ -179,26 +179,83 @@
 
                         <div class="col-md-5 mb-3">
                             <label for="status" class="font-semibold mb-2">Status</label><br>
-                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name" placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
+                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
                         </div>
+
                     </div>
 
                     <div class="flex align-items-center gap-3 mb-5" v-show="showUpload">
                         <label for="image" class="font-semibold mb-2">Selecione a imagem do canhoto</label><br>
-                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @select="onSelect" class="w-15" chooseLabel="Upload" />
+                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000"
+                            @select="onSelect" class="w-15" chooseLabel="Upload" />
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-5">
-                        <Button type="button" severity="secondary" @click="visible = false" class="btn btn-danger me-1">Cancelar</Button>
-                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()" class="btn btn-success">{{ isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
+                        <Button type="button" severity="secondary" @click="visible = false"
+                            class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()"
+                            class="btn btn-success">{{
+                                isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
                     </div>
                 </Dialog>
 
+
+                <Dialog v-model:visible="visibleUser" modal header="Novo Usuário" :style="{ width: '55rem', height: '30rem' }">
+
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3 flex align-items-center gap-4">
+                            <label for="nome" class="font-semibold mb-2">Nome <span class="text-danger">*</span></label><br>
+                            <InputText id="nome" class="inputs-texto flex-auto w-100" v-model="postUser.nome" placeholder="Nome" required/>
+                        </div>
+
+                        <div class="col-md-6 mb-3 flex align-items-center gap-4">
+                            <label for="sobrenome" class="font-semibold mb-2">Sobrenome <span class="text-danger">*</span></label><br>
+                            <InputText id="sobrenome" class="inputs-texto flex-auto w-100" v-model="postUser.sobrenome" placeholder="Sobrenome" required/>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-5 mb-3">
+                            <label for="email" class="mb-2">E-mail <span class="text-danger">*</span></label><br>
+                            <InputText id="email" class="inputs-texto mb-2 w-100" v-model="postUser.email" placeholder="Email" required/>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="senha" class="mb-2">Senha <span class="text-danger">*</span></label><br>
+                            <InputText type="password" id="senha" class="inputs-texto mb-2 w-100" v-model="postUser.senha" placeholder="Senha" required/>
+                        </div>
+
+                        <div class="col-md-4 mb-3" v-if="!isEditMode">
+                            <label for="nascimento" class="font-semibold mb-2">Data de Nascimento <span class="text-danger">*</span></label><br>
+                            <InputText id="dataNascimento" class="inputs-texto w-100" v-model="postUser.dataNascimento" placeholder="26/10/2000" required/>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label for="status" class="font-semibold mb-2">É administrador? <span class="text-danger">*</span></label><br>
+                            <Dropdown v-model="post.isAdmin" :options="[{ name: 'Sim', code: 1}, { name: 'Não', code: 0}]" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" required/>
+                        </div>
+
+                        <div class="col-md-7 mb-3">
+                            <label for="urlPerfilFoto" class="font-semibold mb-2">URL da foto de Perfil <span class="text-warning">(Opcional)</span></label><br>
+                            <InputText id="urlPerfilFoto" class="inputs-texto w-100" v-model="postUser.urlPerfilFoto" placeholder="Exemplo: https://avatars.githubusercontent.com"/>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <Button type="button" severity="secondary" @click="visibleUser = false"
+                            class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="saveUser()" class="btn btn-success">Salvar</Button>
+                    </div>
+                </Dialog>
             </div>
-
-
         </div>
-
     </section>
 
 </template>
@@ -211,7 +268,6 @@ import PostStatusDataService from '@/services/PostStatusDataService';
 import PostEmpresaDataService from '../services/PostEmpresaDataService';
 import Swal from 'sweetalert2';
 import { getCanhotosHoje, getQuantidadeCanhotosDoMes, formatarData, formatarValorBrasil } from '@/services/utils';
-import { Text } from 'vue';
 
 export default {
 
@@ -225,18 +281,36 @@ export default {
                 fileContent: "",
                 selectedStatus: null
             },
+            postUser: {
+                nome: "",
+                sobrenome: "",
+                email: "",
+                senha: "",
+                dataNascimento: "",
+                isAdmin: null,
+                urlPerfilFoto: ""
+            },
             status: [],
             canhotos: [],
             colaboradores: [],
+
+            totalUsuarios: 0,
+            totalUsuariosDoMes: 0,
+            totalUsuariosHoje: 0,
+
             totalCanhotos: 0,
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
+
             dataFormatada: "",
             nomeColaborador: "",
             empresaRelacionada: "",
+
             visible: false,
             showUpload: false,
             isEditMode: false,
+            isEditModeUser: false,
+            visibleUser: false
         }
     },
     watch: {
@@ -246,14 +320,6 @@ export default {
         }
     },
     methods: {
-        getTodosCanhotosHoje(canhotos) {
-
-            if (canhotos) {
-                const getTotalDeCanhotosHoje = getCanhotosHoje(canhotos);
-                this.totalCanhotosHoje = getTotalDeCanhotosHoje;
-            }
-
-        },
         getAllCanhotos() {
 
             PostCanhotoDataService.getAll().then(response => {
@@ -266,15 +332,56 @@ export default {
             });
 
         },
+        getTodosCanhotosHoje(canhotos) {
+
+            if (canhotos) {
+
+                const getTotalDeCanhotosHoje = getCanhotosHoje(canhotos);
+                this.totalCanhotosHoje = getTotalDeCanhotosHoje;
+            }
+
+        },
         getQuantidadeCanhotosDoMesAtual(canhotos) {
 
             if (canhotos) {
+
                 const getQuantidaddeCanhotosDoMesAtual = getQuantidadeCanhotosDoMes(canhotos);
                 this.totalCanhotosDoMes = getQuantidaddeCanhotosDoMesAtual;
             }
 
         },
+        getAllUsuarios() {
+
+            PostUsuarioDataService.getAll().then(response => {
+
+                this.usuarios = response.data;
+                this.totalUsuarios = this.usuarios.length;
+                this.getQuantidadeUsuariosDoMesAtual(this.usuarios);
+                this.getTodosUsuariosHoje(this.usuarios);
+
+            });
+
+        },
+        getQuantidadeUsuariosDoMesAtual(usuarios) {
+
+            if (usuarios) {
+
+                const getQuantidaddeUsuariosDoMesAtual = getQuantidadeCanhotosDoMes(usuarios);
+                this.totalUsuariosDoMes = getQuantidaddeUsuariosDoMesAtual;
+            }
+
+        },
+        getTodosUsuariosHoje(usuarios) {
+
+            if (usuarios) {
+
+                const getTotalDeUsuariosHoje = getCanhotosHoje(usuarios);
+                this.totalUsuariosHoje = getTotalDeUsuariosHoje;
+            }
+
+        },
         getStatus() {
+
             PostStatusDataService.getAll().then(response => {
 
                 this.status = response.data.map(st => ({
@@ -282,10 +389,15 @@ export default {
                     code: st.id
                 }));
 
-            })
+            }).catch(e => {
+
+                console.log(e);
+
+            }).finally(() => { });
 
         },
         newCanhoto() {
+
             this.isEditMode = false;
             this.visible = true;
         },
@@ -359,10 +471,11 @@ export default {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
+                            text: `${e}`
                         });
 
                         return false;
+
                     });
                 });
             });
@@ -379,22 +492,28 @@ export default {
 
         },
         onSelect(event) {
+
             const file = event.files[0];
             const reader = new FileReader();
 
             reader.onload = e => {
+
                 this.post.fileContent = e.target.result;
             };
 
             reader.readAsDataURL(file);
+
         },
         formataData(data) {
+
             return formatarData(data);
         },
         formataValor(valor) {
+
             return formatarValorBrasil(valor);
         },
         buscaColaborador(id) {
+
             PostUsuarioDataService.getUsuarioId(id).then(response => {
                 this.nomeColaborador = response.data;
             });
@@ -402,25 +521,104 @@ export default {
             return this.nomeColaborador;
         },
         getAllColaboradores() {
+
             PostUsuarioDataService.getAll().then(response => {
+
                 this.colaboradores = response.data;
+
+            }).catch(e => {
+            
+                console.log(e);
+                
             });
         },
         getEmpresa() {
+
             PostEmpresaDataService.getAll().then(response => {
+
                 this.empresaRelacionada = response.data[0].nome;
+
+            }).catch(e => {
+
+                console.log(e);
+
             });
+        },
+        newUser() {
+            this.isEditModeUser = false;
+            this.visibleUser = true;
+        },
+        saveUser() {
+
+            const { nome, sobrenome, email, senha, dataNascimento, isAdmin, urlPerfilFoto} = this.postUser;
+
+            var data = {
+
+                name: nome + " " + sobrenome,
+                email: email,
+                empresaId: this.empresaRelacionada,
+                password: senha,
+                dataNascimento: dataNascimento,
+                urlPerfilFoto: urlPerfilFoto,
+                isAdmin: isAdmin.code,
+                isActive: true
+            }
+
+            PostUsuarioDataService.create(data).then(response => {
+
+                this.visibleUser = false;
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Concluído!',
+                    text: `Usuário ${nome} cadastrado com sucesso!`
+                })
+
+                this.getAllCanhotos();
+
+                return true;
+
+            }).catch(e => {
+
+                this.visibleUser = false;
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: `${e}`
+                });
+
+                return false;
+
+            });
+
+            this.visibleUser = false;
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Preencha todos os campos obrigatórios.'
+            })
+
+            return false;
         }
-
-
     },
     mounted() {
+
         this.getEmpresa();
         this.getStatus(),
         this.getAllColaboradores(),
+
+        //Canhotos
         this.getAllCanhotos(),
         this.getQuantidadeCanhotosDoMesAtual(),
-        this.getTodosCanhotosHoje()
+        this.getTodosCanhotosHoje(),
+
+        //Usuarios
+        this.getAllUsuarios(),
+        this.getQuantidadeUsuariosDoMesAtual(),
+        this.getTodosUsuariosHoje()
+
     }
 }
 
