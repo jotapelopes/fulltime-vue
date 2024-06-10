@@ -161,6 +161,18 @@
           </div>
           <div class="col-lg-6 mt-3">
             <div class="form-group">
+              <label for="userEmail">Data de Nascimento</label>
+              <input v-model="postUsuario.dataNascimento" type="email" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-6 mt-3">
+            <div class="form-group">
+              <label for="userEmail">URL Foto de Perfil</label>
+              <input v-model="postUsuario.urlPerfilFoto" type="email" class="form-control" />
+            </div>
+          </div>
+          <div class="col-lg-6 mt-3">
+            <div class="form-group">
               <label for="userPassword">Senha</label>
               <input v-model="postUsuario.password" type="password" class="form-control" />
             </div>
