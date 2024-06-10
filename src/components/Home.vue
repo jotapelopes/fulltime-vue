@@ -6,7 +6,7 @@
 
 
                 <div class="image-profile rounded-circle">
-                    <img src="@/assets/img/profile.png" alt="Imagem de perfil">
+                    <img :src=this.urlPerfilFoto alt="Imagem de perfil" class="rounded-circle" width="40">
                 </div>
             </div>
         </nav>
@@ -24,7 +24,8 @@
                             <div>
                                 <h5 class="card-title mt-3">Usuários do mês</h5>
                                 <h1 class="card-text mt-3"> {{ totalUsuariosDoMes }}</h1>
-                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{ totalUsuariosHoje }} </span> Hoje
+                                <h6 class="card-subtitle mb-2 text-body-secondary"><span class="fw-bold">{{
+                                    totalUsuariosHoje }} </span> Hoje
                                 </h6>
                             </div>
                             <img src="@/assets/img/icone-usuarios.png" alt="" class="mt-2 img-fixed">
@@ -73,13 +74,15 @@
                     </div>
                 </div>
 
-                <div class="col-md-12 ms-3 mt-4 bg-white usuarios-table table-responsive">
+                <div v-if="this.userAdmin" class="col-md-12 ms-3 mt-4 bg-white usuarios-table table-responsive">
 
                     <div class="text-table d-flex text-table-botoes">
                         <h4 class="mt-4 ms-3 mb-3 usuarios-table-title">Gestão de usuários</h4>
 
-                        <Button  @click="newUser" class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
-                            Novo Usuário <i class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
+                        <Button v-if="this.userAdmin" @click="newUser"
+                            class="btn btn-sm btn-outline-danger mt-3 ms-5 mb-3 add-canhoto-text text-decoration-none d-flex justify-content-center align-items-center ml-auto novo-canhoto">
+                            Novo Usuário <i
+                                class='bx bx-plus arrow-footer-table d-flex justify-content-center align-items-center'></i>
                         </button>
 
                     </div>
@@ -124,7 +127,9 @@
                                 {{ this.formataValor(slotProps.data.valorCanhoto) }}
                             </template>
                         </Column>
-                        <Column field="colaboradorId" header="Gerador">
+                        <Column field="numNf" header="Número NF"></Column>
+                        <Column field="chaveNf" header="Chave NF"></Column>
+                        <Column field="colaboradorId" header="Gerador (Entrega)">
                             <template #body="slotProps">
                                 {{ this.buscaColaborador(slotProps.data.colaboradorId) }}
                             </template>
@@ -156,29 +161,43 @@
 
                 </div>
 
-                <Dialog v-model:visible="visible" modal header="Novo Canhoto"
-                    :style="{ width: '55rem', height: '30rem' }">
-                    <div class="flex align-items-center gap-4 mb-3">
+                <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'"
+                    :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '30rem' : '33.9rem' }">
+                    <div v-if="!isEditMode" class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
                         <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada
                             disabled />
                     </div>
 
                     <div class="row">
-
                         <div class="col-md-4 mb-3">
-                            <label for="valor" class="mb-2">Valor do canhoto</label><br>
+                            <label for="valor" class="mb-2">Valor do canhoto <span
+                                    class="text-danger">*</span></label><br>
                             <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2"
                                 v-model="post.valor" />
                         </div>
 
-                        <div class="col-md-3 mb-3" v-if="!isEditMode">
-                            <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
-                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador" />
+                        <div class="col-md-4 mb-3">
+                            <label for="numNf" class="mb-2">Número da Nota fiscal <span
+                                    class="text-danger">*</span></label><br>
+                            <InputNumber id="numNf" class="flex-auto w-100" v-model="post.numeroNota" required />
                         </div>
 
-                        <div class="col-md-5 mb-3">
-                            <label for="status" class="font-semibold mb-2">Status</label><br>
+                        <div class="col-md-4 mb-3">
+                            <label for="chaveNf" class="mb-2">Número da Chave da Nota Fiscal <span
+                                    class="text-warning">(Opcional)</span></label><br>
+                            <InputNumber id="chaveNf" class="flex-auto w-100" v-model="post.chaveNf" required />
+                        </div>
+
+                        <div class="col-md-4 mb-3" v-if="!isEditMode">
+                            <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
+                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador"
+                                :value=nomeUsuario />
+                        </div>
+
+                        <div class="col-md-8 mb-3">
+                            <label for="status" class="font-semibold mb-2">Status <span
+                                    class="text-danger">*</span></label><br>
                             <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name"
                                 placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
                         </div>
@@ -194,26 +213,29 @@
                     <div class="d-flex justify-content-end gap-2 mt-5">
                         <Button type="button" severity="secondary" @click="visible = false"
                             class="btn btn-danger me-1">Cancelar</Button>
-                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()"
-                            class="btn btn-success">{{
-                                isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
+                        <Button type="button" @click="saveCanhoto()" class="btn btn-success">Salvar</Button>
                     </div>
                 </Dialog>
 
 
-                <Dialog v-model:visible="visibleUser" modal header="Novo Usuário" :style="{ width: '55rem', height: '30rem' }">
+                <Dialog v-model:visible="visibleUser" modal header="Novo Usuário"
+                    :style="{ width: '55rem', height: '30rem' }">
 
 
                     <div class="row">
 
                         <div class="col-md-6 mb-3 flex align-items-center gap-4">
-                            <label for="nome" class="font-semibold mb-2">Nome <span class="text-danger">*</span></label><br>
-                            <InputText id="nome" class="inputs-texto flex-auto w-100" v-model="postUser.nome" placeholder="Nome" required/>
+                            <label for="nome" class="font-semibold mb-2">Nome <span
+                                    class="text-danger">*</span></label><br>
+                            <InputText id="nome" class="inputs-texto flex-auto w-100" v-model="postUser.nome"
+                                placeholder="Nome" required />
                         </div>
 
                         <div class="col-md-6 mb-3 flex align-items-center gap-4">
-                            <label for="sobrenome" class="font-semibold mb-2">Sobrenome <span class="text-danger">*</span></label><br>
-                            <InputText id="sobrenome" class="inputs-texto flex-auto w-100" v-model="postUser.sobrenome" placeholder="Sobrenome" required/>
+                            <label for="sobrenome" class="font-semibold mb-2">Sobrenome <span
+                                    class="text-danger">*</span></label><br>
+                            <InputText id="sobrenome" class="inputs-texto flex-auto w-100" v-model="postUser.sobrenome"
+                                placeholder="Sobrenome" required />
                         </div>
 
                     </div>
@@ -222,28 +244,37 @@
 
                         <div class="col-md-5 mb-3">
                             <label for="email" class="mb-2">E-mail <span class="text-danger">*</span></label><br>
-                            <InputText id="email" class="inputs-texto mb-2 w-100" v-model="postUser.email" placeholder="Email" required/>
+                            <InputText id="email" class="inputs-texto mb-2 w-100" v-model="postUser.emailPost"
+                                placeholder="Email" required />
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="senha" class="mb-2">Senha <span class="text-danger">*</span></label><br>
-                            <InputText type="password" id="senha" class="inputs-texto mb-2 w-100" v-model="postUser.senha" placeholder="Senha" required/>
+                            <InputText type="password" id="senha" class="inputs-texto mb-2 w-100"
+                                v-model="postUser.senhaPost" placeholder="Senha" required />
                         </div>
 
                         <div class="col-md-4 mb-3" v-if="!isEditMode">
-                            <label for="nascimento" class="font-semibold mb-2">Data de Nascimento <span class="text-danger">*</span></label><br>
-                            <InputText id="dataNascimento" class="inputs-texto w-100" v-model="postUser.dataNascimento" placeholder="26/10/2000" required/>
+                            <label for="nascimento" class="font-semibold mb-2">Data de Nascimento <span
+                                    class="text-danger">*</span></label><br>
+                            <InputText id="dataNascimento" class="inputs-texto w-100" v-model="postUser.dataNascimento"
+                                placeholder="26/10/2000" required />
                         </div>
 
                         <div class="col-md-5 mb-3">
-                            <label for="status" class="font-semibold mb-2">É administrador? <span class="text-danger">*</span></label><br>
-                            <Dropdown v-model="post.isAdmin" :options="[{ name: 'Sim', code: 1}, { name: 'Não', code: 0}]" optionLabel="name"
-                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" required/>
+                            <label for="status" class="font-semibold mb-2">É administrador? <span
+                                    class="text-danger">*</span></label><br>
+                            <Dropdown v-model="postUser.isAdminSelected"
+                                :options="[{ name: 'Sim', code: 1 }, { name: 'Não', code: 0 }]" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100"
+                                required />
                         </div>
 
                         <div class="col-md-7 mb-3">
-                            <label for="urlPerfilFoto" class="font-semibold mb-2">URL da foto de Perfil <span class="text-warning">(Opcional)</span></label><br>
-                            <InputText id="urlPerfilFoto" class="inputs-texto w-100" v-model="postUser.urlPerfilFoto" placeholder="Exemplo: https://avatars.githubusercontent.com"/>
+                            <label for="urlPerfilFoto" class="font-semibold mb-2">URL da foto de Perfil <span
+                                    class="text-warning">(Opcional)</span></label><br>
+                            <InputText id="urlPerfilFoto" class="inputs-texto w-100" v-model="postUser.urlPerfilFoto"
+                                placeholder="Exemplo: https://avatars.githubusercontent.com" />
                         </div>
 
                     </div>
@@ -268,6 +299,7 @@ import PostStatusDataService from '@/services/PostStatusDataService';
 import PostEmpresaDataService from '../services/PostEmpresaDataService';
 import Swal from 'sweetalert2';
 import { getCanhotosHoje, getQuantidadeCanhotosDoMes, formatarData, formatarValorBrasil } from '@/services/utils';
+import { useAuth } from "@/stores/auth.js";
 
 export default {
 
@@ -279,15 +311,17 @@ export default {
                 valor: "",
                 colaborador: "",
                 fileContent: "",
-                selectedStatus: null
+                selectedStatus: null,
+                chaveNf: 0,
+                numeroNota: 0
             },
             postUser: {
                 nome: "",
                 sobrenome: "",
-                email: "",
-                senha: "",
+                emailPost: "",
+                senhaPost: "",
                 dataNascimento: "",
-                isAdmin: null,
+                isAdminSelected: null,
                 urlPerfilFoto: ""
             },
             status: [],
@@ -297,14 +331,19 @@ export default {
             totalUsuarios: 0,
             totalUsuariosDoMes: 0,
             totalUsuariosHoje: 0,
-
             totalCanhotos: 0,
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
+            usuarioId: 0,
+            empresaRelacionadaId: 0,
+            userAdmin: 0,
 
             dataFormatada: "",
-            nomeColaborador: "",
             empresaRelacionada: "",
+            nomeUsuario: "",
+            nomeColaborador: "",
+            urlPerfilFoto: "",
+
 
             visible: false,
             showUpload: false,
@@ -316,19 +355,17 @@ export default {
     watch: {
         'post.selectedStatus': function (newVal) {
 
-            this.showUpload = newVal.code !== 1 && newVal.code !== 2;
+            this.showUpload = newVal.code == 3;
         }
     },
     methods: {
         getAllCanhotos() {
 
             PostCanhotoDataService.getAll().then(response => {
-
-                this.canhotos = response.data;
+                this.canhotos = response.data.filter(canhoto => canhoto.empresaId === this.empresaRelacionadaId);
                 this.totalCanhotos = this.canhotos.length;
                 this.getQuantidadeCanhotosDoMesAtual(this.canhotos);
                 this.getTodosCanhotosHoje(this.canhotos);
-
             });
 
         },
@@ -403,80 +440,85 @@ export default {
         },
         saveCanhoto() {
 
-            const { empresa, valor, colaborador, selectedStatus, fileContent } = this.post;
+            const { valor, selectedStatus, fileContent, chaveNf, numeroNota } = this.post;
 
             var empresaId = 0;
             var colaboradorId = 0;
 
-            PostUsuarioDataService.getUsuario(colaborador).then(responseColaborador => {
+            colaboradorId = this.usuarioId;
 
-                colaboradorId = responseColaborador.data;
+            PostEmpresaDataService.getEmpresa(this.empresaRelacionada).then(responseEmpresa => {
 
-                PostEmpresaDataService.getEmpresa(empresa).then(responseEmpresa => {
+                empresaId = responseEmpresa.data;
 
-                    empresaId = responseEmpresa.data;
+                if (colaboradorId === 0) {
 
-                    if (colaboradorId === 0) {
+                    this.visible = false;
 
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Não foi possível criar o canhoto: Colaborador não localizado.'
-                        });
-
-                        return false;
-                    }
-
-                    if (empresaId === 0) {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Não foi possível criar o canhoto: Empresa não localizada.'
-                        });
-
-                        return false;
-                    }
-
-                    var data = {
-                        imagem: fileContent == "" ? null : btoa(fileContent),
-                        colaboradorId: colaboradorId,
-                        empresaId: empresaId,
-                        statusId: selectedStatus.code,
-                        valor: valor,
-                    }
-
-                    PostCanhotoDataService.create(data).then(response => {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Concluído!',
-                            text: 'Canhoto cadastrado com sucesso!'
-                        })
-
-                        this.getAllCanhotos();
-
-                        return true;
-
-                    }).catch(e => {
-
-                        this.visible = false;
-
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: `${e}`
-                        });
-
-                        return false;
-
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível criar o canhoto: Colaborador não localizado.'
                     });
+
+                    return false;
+                }
+
+                if (empresaId === 0) {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Não foi possível criar o canhoto: Empresa não localizada.'
+                    });
+
+                    return false;
+                }
+
+                var dataCanhoto = {
+
+                    imagem: fileContent || "",
+                    colaboradorId: colaboradorId,
+                    empresaId: empresaId,
+                    statusId: selectedStatus.code,
+                    valor: valor,
+                    chaveNf: chaveNf,
+                    numNf: numeroNota,
+                }
+
+                PostCanhotoDataService.create(dataCanhoto).then(response => {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Concluído!',
+                        text: 'Canhoto cadastrado com sucesso!'
+                    })
+
+                    valor = "";
+                    selectedStatus = null;
+                    fileContent = "";
+                    chaveNf = 0;
+                    numeroNf = 0;
+
+                    this.getAllCanhotos();
+
+                    return true;
+
+                }).catch(e => {
+
+                    this.visible = false;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Ocorreu um erro ao enviar os dados. Tente novamente mais tarde. Erros: ${e}`
+                    });
+
+                    return false;
                 });
             });
 
@@ -492,17 +534,15 @@ export default {
 
         },
         onSelect(event) {
-
             const file = event.files[0];
             const reader = new FileReader();
 
             reader.onload = e => {
-
-                this.post.fileContent = e.target.result;
+                const base64Data = e.target.result.split(',')[1];
+                this.post.fileContent = base64Data;
             };
 
             reader.readAsDataURL(file);
-
         },
         formataData(data) {
 
@@ -514,29 +554,21 @@ export default {
         },
         buscaColaborador(id) {
 
-            PostUsuarioDataService.getUsuarioId(id).then(response => {
-                this.nomeColaborador = response.data;
+            PostUsuarioDataService.getAll().then(response => {
+                this.usuariosBusca = response.data;
+                const usuario = this.usuariosBusca.find(usuario => usuario.id === id);
+
+                this.nomeColaborador = usuario.name;
             });
 
             return this.nomeColaborador;
+
         },
         getAllColaboradores() {
 
             PostUsuarioDataService.getAll().then(response => {
 
                 this.colaboradores = response.data;
-
-            }).catch(e => {
-            
-                console.log(e);
-                
-            });
-        },
-        getEmpresa() {
-
-            PostEmpresaDataService.getAll().then(response => {
-
-                this.empresaRelacionada = response.data[0].nome;
 
             }).catch(e => {
 
@@ -550,19 +582,21 @@ export default {
         },
         saveUser() {
 
-            const { nome, sobrenome, email, senha, dataNascimento, isAdmin, urlPerfilFoto} = this.postUser;
+            const { nome, sobrenome, emailPost, senhaPost, dataNascimento, isAdminSelected, urlPerfilFoto } = this.postUser;
 
             var data = {
 
                 name: nome + " " + sobrenome,
-                email: email,
-                empresaId: this.empresaRelacionada,
-                password: senha,
+                email: emailPost,
+                empresaId: this.empresaRelacionadaId,
+                password: senhaPost,
+                isActive: true,
+                isAdmin: isAdminSelected.code == 1,
                 dataNascimento: dataNascimento,
-                urlPerfilFoto: urlPerfilFoto,
-                isAdmin: isAdmin.code,
-                isActive: true
+                urlPerfilFoto: urlPerfilFoto
             }
+
+            console.log(data);
 
             PostUsuarioDataService.create(data).then(response => {
 
@@ -574,8 +608,7 @@ export default {
                     text: `Usuário ${nome} cadastrado com sucesso!`
                 })
 
-                this.getAllCanhotos();
-
+                this.getAllColaboradores();
                 return true;
 
             }).catch(e => {
@@ -601,23 +634,43 @@ export default {
             })
 
             return false;
+        },
+        getDados() {
+
+            const auth = useAuth();
+
+            auth.getUser().then(response => {
+
+                var responseUser = JSON.parse(response);
+
+                PostEmpresaDataService.getEmpresaPorId(responseUser.empresaId).then(response => {
+
+                    this.userAdmin = responseUser.isAdmin;
+                    this.empresaRelacionadaId = responseUser.empresaId;
+                    this.empresaRelacionada = response.data;
+                    this.nomeUsuario = responseUser.name;
+                    this.usuarioId = responseUser.id;
+                    this.urlPerfilFoto = responseUser.urlPerfilFoto;
+
+                });
+            });
         }
     },
     mounted() {
 
-        this.getEmpresa();
-        this.getStatus(),
-        this.getAllColaboradores(),
+        this.getDados(),
+            this.getStatus(),
+            this.getAllColaboradores(),
 
-        //Canhotos
-        this.getAllCanhotos(),
-        this.getQuantidadeCanhotosDoMesAtual(),
-        this.getTodosCanhotosHoje(),
+            //Canhotos
+            this.getAllCanhotos(),
+            this.getQuantidadeCanhotosDoMesAtual(),
+            this.getTodosCanhotosHoje(),
 
-        //Usuarios
-        this.getAllUsuarios(),
-        this.getQuantidadeUsuariosDoMesAtual(),
-        this.getTodosUsuariosHoje()
+            //Usuarios
+            this.getAllUsuarios(),
+            this.getQuantidadeUsuariosDoMesAtual(),
+            this.getTodosUsuariosHoje()
 
     }
 }

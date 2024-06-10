@@ -23,10 +23,13 @@ export const useAuth = defineStore('auth', () => {
   })
 
   async function checkToken() {
+    
     try {
+
       const tokenAuth = 'Bearer ' + token.value;
-      console.log(tokenAuth)
+
       const { data } = await http.get("/Users/verify-token", {
+
         headers: {
           Authorization: tokenAuth,
         },
@@ -38,7 +41,6 @@ export const useAuth = defineStore('auth', () => {
   }
 
   function clear() {
-    console.log('limpando')
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     token.value = '';

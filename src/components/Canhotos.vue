@@ -4,7 +4,7 @@
             <div class="container-fluid d-flex justify-content-end align-items-center">
 
                 <div class="image-profile rounded-circle">
-                    <img src="@/assets/img/profile.png" alt="Imagem de perfil">
+                    <img :src=this.urlPerfilFoto alt="Imagem de perfil" class="rounded-circle" width="40">
                 </div>
             </div>
         </nav>
@@ -22,15 +22,15 @@
                         <h4 class="mt-4 ms-3 mb-3 canhotos-table-title">Últimos canhotos</h4>
                     </div>
 
-                    <DataTable :value="canhotos" paginator :rows="5">
-                        <Column field="id" header="ID" filterField="id"></Column>
+                    <DataTable :value="filteredCanhotos" paginator :rows="5">
+                        <Column field="id" header="ID"></Column>
                         <Column field="valorCanhoto" header="Valor">
                             <template #body="slotProps">
                                 {{ this.formataValor(slotProps.data.valorCanhoto) }}
                             </template>
                         </Column>
                         <Column field="numNf" header="NF"></Column>
-                        <Column field="colaboradorId" header="Gerador">
+                        <Column field="colaboradorId" header="Gerador  (Entrega)">
                             <template #body="slotProps">
                                 {{ this.buscaColaborador(slotProps.data.colaboradorId) }}
                             </template>
@@ -42,8 +42,7 @@
                         </Column>
                         <Column field="autenticado" header="Autenticado">
                             <template #body="slotProps">
-                                <Badge 
-                                    class="d-flex justify-content-center" 
+                                <Badge class="d-flex justify-content-center"
                                     :value="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'SIM' : 'NÃO'"
                                     :severity="slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'success' : 'danger'">
                                 </Badge>
@@ -56,9 +55,9 @@
                         </Column>
                         <Column header="Obter canhoto">
                             <template #body="slotProps">
-                                <i class='bx bxs-file-export' 
-                                :style="{ color: slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'green' : 'red' }" 
-                                @click="verImagem(slotProps.data.id)">
+                                <i class='bx bxs-file-export'
+                                    :style="{ color: slotProps.data.imagemCanhoto && slotProps.data.imagemCanhoto !== 'dW5kZWZpbmVk' ? 'green' : 'red' }"
+                                    @click="verImagem(slotProps.data.id)">
                                 </i>
                             </template>
                         </Column>
@@ -73,7 +72,8 @@
                             class="btn btn-outline-danger busca-canhoto-container-2-text" />
 
                         <div class="input-group mr-5">
-                            <input class="busca-canhoto-container-2-input" type="text" name="Buscar canhotos" id="buscaCanhotoId" placeholder="Buscar canhoto via NF">
+                            <input class="busca-canhoto-container-2-input" type="text" name="Buscar canhotos"
+                                placeholder="Buscar canhoto via NF" v-model="searchQuery" @input="filterTable">
                         </div>
                         <div class="busca-canhoto-container-2-cards">
 
@@ -104,48 +104,61 @@
                     </div>
                 </div>
 
-                <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'" :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '30rem' : '33.9rem' }">
+                <Dialog v-model:visible="visible" modal :header="isEditMode ? 'Atualizar canhoto' : 'Novo Canhoto'"
+                    :style="{ width: isEditMode ? '73rem' : '75rem', height: isEditMode ? '29rem' : '33.9rem' }">
                     <div v-if="!isEditMode" class="flex align-items-center gap-4 mb-3">
                         <label for="empresa" class="font-semibold mb-2">Empresa</label><br>
-                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada disabled />
+                        <InputText id="empresa" class="flex-auto w-100" v-model="post.empresa" :value=empresaRelacionada
+                            disabled />
                     </div>
 
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="valor" class="mb-2">Valor do canhoto <span class="text-danger">*</span></label><br>
-                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2" v-model="post.valor" />
+                            <label for="valor" class="mb-2">Valor do canhoto <span
+                                    class="text-danger">*</span></label><br>
+                            <InputNumber class="mb-2" inputId="locale-brazil" locale="pt-BR" :minFractionDigits="2"
+                                v-model="post.valor" />
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="numNf" class="mb-2">Número da Nota fiscal <span class="text-danger">*</span></label><br>
-                            <InputNumber id="numNf" class="flex-auto w-100" v-model="post.numeroNota" required/>
+                            <label for="numNf" class="mb-2">Número da Nota fiscal <span
+                                    class="text-danger">*</span></label><br>
+                            <InputNumber id="numNf" class="flex-auto w-100" v-model="post.numeroNota" required />
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="chaveNf" class="mb-2">Número da Chave da Nota Fiscal <span class="text-warning">(Opcional)</span></label><br>
-                            <InputNumber id="chaveNf" class="flex-auto w-100" v-model="post.chaveNf" required/>
+                            <label for="chaveNf" class="mb-2">Número da Chave da Nota Fiscal <span
+                                    class="text-warning">(Opcional)</span></label><br>
+                            <InputNumber id="chaveNf" class="flex-auto w-100" v-model="post.chaveNf" required />
                         </div>
 
                         <div class="col-md-4 mb-3" v-if="!isEditMode">
                             <label for="colaborador" class="font-semibold mb-2">Gerado por</label><br>
-                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador" :value=nomeUsuario />
+                            <InputText id="colaborador" class="w-100" disabled v-model="post.colaborador"
+                                :value=nomeUsuario />
                         </div>
 
                         <div class="col-md-8 mb-3">
-                            <label for="status" class="font-semibold mb-2">Status <span class="text-danger">*</span></label><br>
-                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name" placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
+                            <label for="status" class="font-semibold mb-2">Status <span
+                                    class="text-danger">*</span></label><br>
+                            <Dropdown v-model="post.selectedStatus" :options="status" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" />
                         </div>
-                        
+
                     </div>
 
                     <div class="flex align-items-center gap-3 mb-5" v-show="showUpload">
                         <label for="image" class="font-semibold mb-2">Selecione a imagem do canhoto</label><br>
-                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @select="onSelect" class="w-15" chooseLabel="Upload" />
+                        <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000"
+                            @select="onSelect" class="w-15" chooseLabel="Upload" />
                     </div>
 
                     <div class="d-flex justify-content-end gap-2 mt-5">
-                        <Button type="button" severity="secondary" @click="visible = false" class="btn btn-danger me-1">Cancelar</Button>
-                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()" class="btn btn-success">{{ isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
+                        <Button type="button" severity="secondary" @click="visible = false"
+                            class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="isEditMode ? updateCanhoto(canhotoId) : saveCanhoto()"
+                            class="btn btn-success">{{
+                                isEditMode ? 'Salvar Alterações' : 'Salvar' }}</Button>
                     </div>
                 </Dialog>
 
@@ -184,14 +197,21 @@ export default {
             totalCanhotosDoMes: 0,
             totalCanhotosHoje: 0,
             usuarioId: 0,
+            empresaRelacionadaId: 0,
+
             visible: false,
             showUpload: false,
             isEditMode: false,
+
+            urlPerfilFoto: "",
             nomeColaborador: "",
             empresaRelacionada: "",
             nomeUsuario: "",
+
             status: [],
-            canhotos: []
+            canhotos: [],
+            searchQuery: '',
+            filteredCanhotos: []
         }
     },
     watch: {
@@ -199,6 +219,9 @@ export default {
 
             this.showUpload = newVal.code == 3;
         }
+    },
+    created() {
+        this.getAllCanhotos();
     },
     methods: {
         getTodosCanhotosHoje(canhotos) {
@@ -213,7 +236,8 @@ export default {
 
             PostCanhotoDataService.getAll().then(response => {
 
-                this.canhotos = response.data;
+                this.canhotos = response.data.filter(canhoto => canhoto.empresaId === this.empresaRelacionadaId);
+                this.filteredCanhotos = this.canhotos;
                 this.totalCanhotos = this.canhotos.length;
                 this.getQuantidadeCanhotosDoMesAtual(this.canhotos);
                 this.getTodosCanhotosHoje(this.canhotos);
@@ -250,11 +274,11 @@ export default {
 
                     throw new Error('Erro ao obter a imagem: ' + response.statusText);
                 }
-        
+
                 const base64Image = `data:image/jpeg;base64,${response.data}`;
                 const blob = await fetch(base64Image).then(res => res.blob());
                 const url = window.URL.createObjectURL(blob);
-                
+
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
@@ -262,7 +286,7 @@ export default {
                 a.target = '_blank';
                 document.body.appendChild(a);
                 a.click();
-                
+
                 window.URL.revokeObjectURL(url);
 
             } catch (error) {
@@ -286,29 +310,28 @@ export default {
                     this.post = {
                         ...response.data,
                         selectedStatus: this.status.find(s => s.name === responseStatus.data),
-                        valor: response.data.valorCanhoto
+                        valor: response.data.valorCanhoto,
+                        chaveNf: response.data.chaveNf,
+                        numeroNota: response.data.numNf,
                     };
 
                     this.visible = true;
                 });
             });
 
-            
+
         },
         saveCanhoto() {
 
-            const {valor, selectedStatus, fileContent, chaveNf, numeroNota} = this.post;
+            const { valor, selectedStatus, fileContent, chaveNf, numeroNota } = this.post;
 
             var empresaId = 0;
-            var colaboradorId = 0;
-
-            colaboradorId = this.usuarioId;
 
             PostEmpresaDataService.getEmpresa(this.empresaRelacionada).then(responseEmpresa => {
 
                 empresaId = responseEmpresa.data;
 
-                if (colaboradorId === 0) {
+                if (this.usuarioId === 0) {
 
                     this.visible = false;
 
@@ -334,10 +357,10 @@ export default {
                     return false;
                 }
 
-                var data = {
+                var dataCanhoto = {
 
                     imagem: fileContent || "",
-                    colaboradorId: colaboradorId,
+                    colaboradorId: this.usuarioId,
                     empresaId: empresaId,
                     statusId: selectedStatus.code,
                     valor: valor,
@@ -345,7 +368,7 @@ export default {
                     numNf: numeroNota,
                 }
 
-                PostCanhotoDataService.create(data).then(response => {
+                PostCanhotoDataService.create(dataCanhoto).then(response => {
 
                     this.visible = false;
 
@@ -354,9 +377,8 @@ export default {
                         title: 'Concluído!',
                         text: 'Canhoto cadastrado com sucesso!'
                     })
-                    
-                    this.getAllCanhotos();
 
+                    this.getAllCanhotos();
                     return true;
 
                 }).catch(e => {
@@ -391,7 +413,7 @@ export default {
             PostCanhotoDataService.getCanhotoId(id).then(response => {
 
                 if (response.data) {
-                    
+
                     var empresaId = response.data.empresaId;
                     var colaboradorId = response.data.colaboradorId;
 
@@ -415,10 +437,9 @@ export default {
                             icon: 'success',
                             title: 'Concluído!',
                             text: 'Canhoto atualizado com sucesso!'
-                        })
+                        });
 
                         this.getAllCanhotos();
-
                         return true;
 
                     }).catch(e => {
@@ -465,8 +486,12 @@ export default {
             return formatarValorBrasil(valor);
         },
         buscaColaborador(id) {
-            PostUsuarioDataService.getUsuarioId(id).then(response => {
-                this.nomeColaborador =  response.data;
+
+            PostUsuarioDataService.getAll().then(response => {
+
+                this.usuariosBusca = response.data;
+                const usuario = this.usuariosBusca.find(usuario => usuario.id === id);
+                this.nomeColaborador = usuario.name;
             });
 
             return this.nomeColaborador;
@@ -481,12 +506,29 @@ export default {
 
                 PostEmpresaDataService.getEmpresaPorId(responseUser.empresaId).then(response => {
 
-                    console.log(responseUser);
+                    this.empresaRelacionadaId = responseUser.empresaId;
                     this.empresaRelacionada = response.data;
                     this.nomeUsuario = responseUser.name;
                     this.usuarioId = responseUser.id;
+                    this.urlPerfilFoto = responseUser.urlPerfilFoto;
                 });
             });
+        },
+        filterTable() {
+            if (this.searchQuery === '') {
+
+                this.filteredCanhotos = this.canhotos;
+
+            } else {
+
+                const query = this.searchQuery.toLowerCase();
+                console.log(query);
+
+                this.filteredCanhotos = this.canhotos.filter(canhoto => {
+                    const numNf = canhoto.numNf ? canhoto.numNf.toString().toLowerCase() : '';
+                    return numNf.includes(query);
+                });
+            }
         }
     },
     mounted() {

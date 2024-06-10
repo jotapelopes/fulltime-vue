@@ -10,10 +10,6 @@ class PostUsuarioDataService {
         return http.post("/Users/create", data)
     }
 
-    getUsuarioId(param) {
-        return http.get("/Users/id/" + param)
-    }
-
 }
 
 export default new PostUsuarioDataService();
