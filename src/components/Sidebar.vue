@@ -31,7 +31,7 @@
           </RouterLink>
         </li>
 
-        <li :class="{ 'nav-link': true, active: isActive('/colaboradores') }">
+        <li v-if="!this.userAdmin" :class="{ 'nav-link': true, active: isActive('/colaboradores') }">
           <RouterLink to="/colaboradores">
             <i class="bx bxs-user icon"></i>
             <span class="text nav-text">Colaboradores</span>
@@ -55,6 +55,11 @@
 import { useAuth } from '@/stores/auth';
 
 export default {
+  data() {
+    return {
+      userAdmin: false
+    }
+  },
   computed: {
     currentRoute() {
       return this.$route.path;
@@ -68,6 +73,16 @@ export default {
       const auth = useAuth();
       auth.clear();
       // window.location = '/location'
+    },
+    getDados() {
+
+      const auth = useAuth();
+
+      auth.getUser().then(response => {
+
+        var responseUser = JSON.parse(response);
+        this.userAdmin = responseUser.isAdmin;
+      });
     }
   }
 }
