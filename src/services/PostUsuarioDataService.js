@@ -10,6 +10,10 @@ class PostUsuarioDataService {
         return http.post("/Users/create", data)
     }
 
+    update(data) {
+        return http.put("/Users/update", data)
+    }
+
 }
 
 export default new PostUsuarioDataService();

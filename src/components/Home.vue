@@ -108,7 +108,7 @@
                         </Column>
                         <Column header="Opções">
                             <template #body="slotProps">
-                                <i class='bx bxs-edit' @click="editCanhoto(slotProps.data.id)"></i>
+                                <i class='bx bxs-edit' @click="editUser(slotProps.data.id)"></i>
                             </template>
                         </Column>
                     </DataTable>
@@ -285,6 +285,51 @@
                         <Button type="button" @click="saveUser()" class="btn btn-success">Salvar</Button>
                     </div>
                 </Dialog>
+
+                <Dialog v-model:visible="visibleUser" :header="isEditModeUser ? 'Editar Usuário' : 'Novo Usuário'"
+                    :style="{ width: '55rem', height: '30rem' }">
+                    <div class="row">
+                        <div class="col-md-6 mb-3 flex align-items-center gap-4">
+                            <label for="nome" class="font-semibold mb-2">Nome <span class="text-danger">*</span></label><br>
+                            <InputText id="nome" class="inputs-texto flex-auto w-100" v-model="postUser.nome" placeholder="Nome" required />
+                        </div>
+                        <div class="col-md-6 mb-3 flex align-items-center gap-4">
+                            <label for="sobrenome" class="font-semibold mb-2">Sobrenome <span class="text-danger">*</span></label><br>
+                            <InputText id="sobrenome" class="inputs-texto flex-auto w-100" v-model="postUser.sobrenome" placeholder="Sobrenome" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label for="email" class="mb-2">E-mail <span class="text-danger">*</span></label><br>
+                            <InputText id="email" class="inputs-texto mb-2 w-100" v-model="postUser.emailPost" placeholder="Email" required />
+                        </div>
+                        <div class="col-md-3 mb-3" v-if="!isEditModeUser">
+                            <label for="senha" class="mb-2">Senha <span class="text-danger">*</span></label><br>
+                            <InputText type="password" id="senha" class="inputs-texto mb-2 w-100" v-model="postUser.senhaPost" placeholder="Senha" required />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="nascimento" class="font-semibold mb-2">Data de Nascimento <span class="text-danger">*</span></label><br>
+                            <InputText id="dataNascimento" class="inputs-texto w-100" v-model="postUser.dataNascimento" placeholder="26/10/2000" required />
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label for="status" class="font-semibold mb-2">É administrador? <span class="text-danger">*</span></label><br>
+                            <Dropdown v-model="postUser.isAdminSelected"
+                                :options="[{ name: 'Sim', code: 1 }, { name: 'Não', code: 0 }]" optionLabel="name"
+                                placeholder="Selecione o status" checkmark :highlightOnSelect="false" class="w-100" required />
+                        </div>
+                        <div class="col-md-7 mb-3">
+                            <label for="urlPerfilFoto" class="font-semibold mb-2">URL da foto de Perfil <span class="text-warning">(Opcional)</span></label><br>
+                            <InputText id="urlPerfilFoto" class="inputs-texto w-100" v-model="postUser.urlPerfilFoto"
+                                placeholder="Exemplo: https://avatars.githubusercontent.com" />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-5">
+                        <Button type="button" severity="secondary" @click="visibleUser = false"
+                            class="btn btn-danger me-1">Cancelar</Button>
+                        <Button type="button" @click="saveUser()" class="btn btn-success">Salvar</Button>
+                    </div>
+                </Dialog>
+
             </div>
         </div>
     </section>
@@ -580,12 +625,26 @@ export default {
             this.isEditModeUser = false;
             this.visibleUser = true;
         },
+        editUser(userId) {
+            this.isEditModeUser = true;
+            const user = this.colaboradores.find(user => user.id === userId);
+            this.postUser = {
+                id: user.id,
+                nome: user.name.split(' ')[0],
+                sobrenome: user.name.split(' ').slice(1).join(' '),
+                emailPost: user.email,
+                senhaPost: '', 
+                dataNascimento: user.dataNascimento,
+                isAdminSelected: user.isAdmin ? { name: 'Sim', code: 1 } : { name: 'Não', code: 0 },
+                urlPerfilFoto: user.urlPerfilFoto || ""
+            };
+            this.visibleUser = true;
+        },
         saveUser() {
 
-            const { nome, sobrenome, emailPost, senhaPost, dataNascimento, isAdminSelected, urlPerfilFoto } = this.postUser;
+            const { id, nome, sobrenome, emailPost, senhaPost, dataNascimento, isAdminSelected, urlPerfilFoto } = this.postUser;
 
             var data = {
-
                 name: nome + " " + sobrenome,
                 email: emailPost,
                 empresaId: this.empresaRelacionadaId,
@@ -596,34 +655,62 @@ export default {
                 urlPerfilFoto: urlPerfilFoto
             }
 
-            console.log(data);
-
-            PostUsuarioDataService.create(data).then(response => {
-
-                this.visibleUser = false;
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Concluído!',
-                    text: `Usuário ${nome} cadastrado com sucesso!`
-                })
-
-                this.getAllColaboradores();
-                return true;
-
-            }).catch(e => {
-
-                this.visibleUser = false;
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: `${e}`
+            console.log(data);  
+            if (this.isEditModeUser) {
+                console.log('esta atualizandao' + id)
+                var updateData = {
+                    id: id,
+                    name: nome + " " + sobrenome,
+                    email: emailPost,
+                    empresaId: this.empresaRelacionadaId,
+                    isActive: true,
+                    isAdmin: isAdminSelected.code == 1,
+                    dataNascimento: dataNascimento,
+                    urlPerfilFoto: urlPerfilFoto
+                }
+                console.log(updateData)
+                PostUsuarioDataService.update(updateData).then(response => {
+                    this.visibleUser = false;
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Concluído!',
+                        text: `Usuário ${nome} atualizado com sucesso!`
+                    });
+                    this.getAllColaboradores();
+                }).catch(e => {
+                    this.visibleUser = false;
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `${e}`
+                    });
                 });
+            } else {
+                PostUsuarioDataService.create(data).then(response => {
 
-                return false;
+                    this.visibleUser = false;
 
-            });
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Concluído!',
+                        text: `Usuário ${nome} cadastrado com sucesso!`
+                    })
+
+                    this.getAllColaboradores();
+                    return true;
+
+                }).catch(e => {
+
+                    this.visibleUser = false;
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `${e}`
+                    });
+
+                    return false;
+                });
 
             this.visibleUser = false;
 
@@ -634,6 +721,7 @@ export default {
             })
 
             return false;
+        }
         },
         getDados() {
 
