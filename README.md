@@ -70,7 +70,7 @@ Ao selecionar "Canhotos" da sidebar, o usuário é direcionado para o componete 
 
 ## Novo canhoto
 
-![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/8dca33bd-32b5-41de-97b8-9c3c6944316a)
+![image](https://github.com/jotapelopes/fulltime-vue/assets/127902932/36aab8d2-838e-44b6-8b7b-dae3777ab87d)
 
 Quando selecionado o botão "Novo canhoto" do componente de canhotos ou da sidebar, será direcionado para o modal de cadastro. O campo status é um dropdown que permite inserção de status desejados pelo cliente via API, porém ao ter o status "Entrega realizada" é liberado o botão de upload da foto do canhoto físico.
 
