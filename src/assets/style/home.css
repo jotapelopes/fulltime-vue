@@ -355,22 +355,19 @@ dt-paging:focus,
     justify-content: center;
 }
 
-.inputs-texto:active, .inputs-texto:focus {
+.inputs-texto:active,
+.inputs-texto:focus {
     border: 1px solid var(--Neutral-300, #050505) !important;
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1366px) {
 
     .sidebar {
-        min-width: 90px !important;
-    }
-
-    .sidebar .text {
-        display: none !important;
+        min-width: 60px !important;
     }
 
     .sidebar .image-text img {
-        width: 60px !important;
+        width: 50px !important;
     }
 
     .sidebar li .icon {
@@ -378,8 +375,8 @@ dt-paging:focus,
     }
 
     .home {
-        min-width: 100% !important;
-        margin-left: -160px !important;
+        width: 100% !important;
+        margin-left: -11.5% !important;
     }
 
     .card {

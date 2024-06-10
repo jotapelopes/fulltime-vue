@@ -177,15 +177,11 @@
 @media only screen and (min-width: 1024px) and (max-width: 1366px) {
 
     .sidebar {
-        min-width: 90px !important;
-    }
-
-    .sidebar .text {
-        display: none !important;
+        min-width: 60px !important;
     }
 
     .sidebar .image-text img {
-        width: 60px !important;
+        width: 50px !important;
     }
 
     .sidebar li .icon {
@@ -193,8 +189,34 @@
     }
 
     .home {
-        min-width: 100% !important;
-        margin-left: -160px !important;
+        width: 100% !important;
+        margin-left: -11.5% !important;
+    }
+
+    .card {
+        min-width: 240px !important;
+    }
+
+    .cards-colunas {
+        flex: 0 0 auto;
+        display: flex !important;
+    }
+
+    .usuarios-table {
+        min-width: 890px !important;
+    }
+
+    .canhotos-table-title {
+        display: none !important;
+    }
+
+    .text-table-botoes {
+        display: none !important;
+    }
+
+    .novo-canhoto {
+        margin-left: -120px !important;
+        width: 400px !important;
     }
 
     .image-profile {
@@ -208,10 +230,6 @@
     .background-colors {
         width: 1024px !important;
         height: 1366px !important;
-    }
-
-    .canhotos-table-title {
-        display: none !important;
     }
 
 }
